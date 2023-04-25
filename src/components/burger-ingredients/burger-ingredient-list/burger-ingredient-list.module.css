@@ -1,0 +1,5 @@
+.burgerIngredientsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 272px));
+  gap: 24px;
+}
