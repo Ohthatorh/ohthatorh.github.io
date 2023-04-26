@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import BurgerConstrucorInfo from "./burger-constructor-info/burger-constructor-info";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import styles from "./burger-constructor.module.css";
@@ -14,5 +15,9 @@ function BurgerConstrucor({ data }) {
     </div>
   );
 }
+
+BurgerConstrucor.propTypes = {
+  data: PropTypes.array,
+};
 
 export default BurgerConstrucor;
