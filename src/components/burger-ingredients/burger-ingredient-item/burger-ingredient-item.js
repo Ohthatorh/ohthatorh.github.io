@@ -7,6 +7,9 @@ function BurgerIngredientItem({ item, index }) {
     `${styles.textBurgerItem}`,
     "text text_type_digits-default mb-1"
   );
+  const counterClassNames = classNames(
+    `${styles.burgerItemCounter} text text_type_digits-default`
+  );
   return (
     <li key={index} className={styles.burgerItem}>
       <picture className="pl-4 pr-4 pb-1">
@@ -18,6 +21,7 @@ function BurgerIngredientItem({ item, index }) {
         {item.price}
         <CurrencyIcon type="primary" />
       </p>
+      <p className={counterClassNames}>1</p>
       <p className="text text_type_main-default">{item.name}</p>
     </li>
   );

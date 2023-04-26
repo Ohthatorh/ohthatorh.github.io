@@ -15,6 +15,7 @@ code {
 :root {
   --darkGreyColor: #8585ad;
   --whiteColor: #fff;
+  --interface: #4c4cff;
 }
 
 ul {
@@ -29,7 +30,7 @@ a {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1272px;
   margin: 0 auto;
   padding: 0 16px;
 }
