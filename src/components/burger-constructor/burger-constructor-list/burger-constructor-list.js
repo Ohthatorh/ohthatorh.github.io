@@ -20,7 +20,7 @@ function BurgerConstructorList({ data }) {
       </div>
       <ul className={styles.burgerConstructorList}>
         {data.map((el, index) => {
-          return <BurgerConstrucorItem item={el} index={index} />;
+          return <BurgerConstrucorItem item={el} key={index} />;
         })}
       </ul>
       <div className={styles.burgerConstructorFixed}>

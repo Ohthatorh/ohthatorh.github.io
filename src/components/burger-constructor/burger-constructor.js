@@ -3,6 +3,7 @@ import BurgerConstrucorInfo from "./burger-constructor-info/burger-constructor-i
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import styles from "./burger-constructor.module.css";
 import classNames from "classnames";
+import ingredientsPropTypes from "../../propTypes/ingredients";
 
 function BurgerConstrucor({ data }) {
   const burgerConstructorWrapClassNames = classNames(
@@ -17,7 +18,7 @@ function BurgerConstrucor({ data }) {
 }
 
 BurgerConstrucor.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(ingredientsPropTypes),
 };
 
 export default BurgerConstrucor;
