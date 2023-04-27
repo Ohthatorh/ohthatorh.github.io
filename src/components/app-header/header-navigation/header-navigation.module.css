@@ -1,0 +1,12 @@
+.navList {
+  display: flex;
+}
+.navLink {
+  display: flex;
+  align-items: center;
+  color: var(--darkGreyColor);
+}
+
+.navLinkActive {
+  color: var(--whiteColor);
+}

@@ -1,0 +1,14 @@
+.burgerIngredientsWrap {
+  height: 680px;
+  overflow-x: hidden;
+}
+
+.burgerIngredientsWrap::-webkit-scrollbar {
+  width: 8px;
+}
+.burgerIngredientsWrap::-webkit-scrollbar-track {
+  background-color: #2f2f37;
+}
+.burgerIngredientsWrap::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}

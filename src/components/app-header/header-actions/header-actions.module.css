@@ -1,0 +1,7 @@
+.personal {
+  display: flex;
+  color: #8585ad;
+}
+.personal svg {
+  margin-right: 8px;
+}
