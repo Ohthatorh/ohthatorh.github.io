@@ -10,7 +10,6 @@ function BurgerConstrucorItem({ item }) {
   const burgerConstrucorItemClassName = classNames(
     `${styles.burgerConstrucorItem}`
   );
-  // console.log(typeof item);
   return (
     <li className={burgerConstrucorItemClassName}>
       <DragIcon type="primary" />
