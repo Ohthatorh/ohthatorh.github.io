@@ -16,6 +16,8 @@ code {
   --darkGreyColor: #8585ad;
   --whiteColor: #fff;
   --interface: #4c4cff;
+  --blackColor: #000000;
+  --modalBackground: #1c1c21;
 }
 
 ul {
@@ -27,6 +29,12 @@ ul {
 a {
   color: unset;
   text-decoration: none;
+}
+
+button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .container {
