@@ -3,21 +3,20 @@ import { useEffect, useState } from "react";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstrucor from "../burger-constructor/burger-constructor";
-
-const LIST_INGREDIENTS_URL =
-  "https://norma.nomoreparties.space/api/ingredients";
+import { getIngredients } from "../../utils/burger-api";
 
 function App() {
   const [data, setData] = useState({
     isLoading: true,
-    data: null,
+    ingredients: null,
     hasError: false,
   });
   useEffect(() => {
     setData({ ...data, isLoading: true, hasError: false });
-    fetch(LIST_INGREDIENTS_URL)
-      .then((res) => res.json())
-      .then((res) => setData({ ...data, isLoading: false, data: res.data }))
+    getIngredients()
+      .then((res) =>
+        setData({ ...data, isLoading: false, ingredients: res.data })
+      )
       .catch((e) => {
         setData({ ...data, isLoading: false, hasError: true });
       });
@@ -27,10 +26,10 @@ function App() {
     <div className="App">
       <AppHeader />
       <main>
-        {!data.isLoading && (
+        {!data.isLoading && data.ingredients && (
           <section className="burgerMain container">
-            <BurgerIngredients data={data.data} />
-            <BurgerConstrucor data={data.data} />
+            <BurgerIngredients data={data.ingredients} />
+            <BurgerConstrucor data={data.ingredients} />
           </section>
         )}
       </main>

@@ -1,5 +1,6 @@
 import ModalClose from "../modal-close/modal-close";
 import styles from "./modal-header.module.css";
+import PropTypes from "prop-types";
 
 function ModalHeader({ text, onClose }) {
   return (
@@ -9,5 +10,10 @@ function ModalHeader({ text, onClose }) {
     </div>
   );
 }
+
+ModalHeader.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  text: PropTypes.string,
+};
 
 export default ModalHeader;

@@ -17,6 +17,7 @@ function Modal({ children, text, onClose }) {
     };
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
+    // eslint-disable-next-line
   }, []);
   return ReactDOM.createPortal(
     <>

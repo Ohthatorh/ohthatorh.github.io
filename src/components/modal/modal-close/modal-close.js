@@ -1,5 +1,6 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modal-close.module.css";
+import PropTypes from "prop-types";
 
 function ModalClose({ onClose }) {
   return (
@@ -8,5 +9,9 @@ function ModalClose({ onClose }) {
     </button>
   );
 }
+
+ModalClose.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
 
 export default ModalClose;

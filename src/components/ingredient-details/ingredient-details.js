@@ -2,6 +2,7 @@ import styles from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Modal from "../modal/modal";
+import ingredientsPropTypes from "../../propTypes/ingredients";
 
 function IngredientDetails({ text, item, onClose }) {
   const modalInfoItemImgClassNames = classNames(`${styles.modalImg} mb-4`);
@@ -49,21 +50,7 @@ function IngredientDetails({ text, item, onClose }) {
 
 IngredientDetails.propTypes = {
   text: PropTypes.string.isRequired,
-  // ...если поставлю PropTypes.objectOf(ingredientsPropTypes).isRequired то получу ошибку, почему?
-  item: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    __v: PropTypes.number,
-  }),
+  item: ingredientsPropTypes.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
