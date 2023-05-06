@@ -29,7 +29,7 @@ function App() {
         {!data.isLoading && data.ingredients && (
           <section className="burgerMain container">
             <BurgerIngredients data={data.ingredients} />
-            <BurgerConstrucor data={data.ingredients} />
+            <BurgerConstrucor />
           </section>
         )}
       </main>
