@@ -6,7 +6,7 @@ import { useContext, useEffect, useReducer, useState } from "react";
 import styles from "./burger-constructor-info.module.css";
 import classNames from "classnames";
 import OrderDetails from "../../order-details/order-details";
-import { IngredientsContext } from "../../../services/ingredientsContext";
+import { SelectedIngredientsContext } from "../../../services/selectedIngredientsContext";
 import { postOrder } from "../../../utils/burger-api";
 import { OrderContext } from "../../../services/orderContext";
 
@@ -39,7 +39,7 @@ function BurgerConstrucorInfo() {
   const textClassNames = classNames(
     `${styles.burgerConstructorInfoText} text text_type_digits-medium mr-10`
   );
-  const ingredients = useContext(IngredientsContext);
+  const ingredients = useContext(SelectedIngredientsContext);
   const bun = ingredients.filter((el) => el.type === "bun")[0];
   const ingredientsWithoutBun = ingredients.filter((el) => el.type !== "bun");
   useEffect(() => {
@@ -47,6 +47,7 @@ function BurgerConstrucorInfo() {
       ingredientsWithoutBun.reduce((sum, a) => sum + a.price, 0) +
       bun.price * 2;
     setAmount(countPrices);
+    //eslint-disable-next-line
   }, [ingredients]);
 
   const handleOpenModal = () => {

@@ -2,14 +2,14 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import BurgerConstrucorItem from "../burger-constructor-item/burger-constructor-item";
 import styles from "./burger-constructor-list.module.css";
 import classNames from "classnames";
-import { IngredientsContext } from "../../../services/ingredientsContext";
+import { SelectedIngredientsContext } from "../../../services/selectedIngredientsContext";
 import { useContext } from "react";
 
 function BurgerConstructorList() {
   const burgerConstructorListWrapClassNames = classNames(
     `${styles.burgerConstructorListWrap} mb-10`
   );
-  const data = useContext(IngredientsContext);
+  const data = useContext(SelectedIngredientsContext);
   const bun = data.filter((el) => el.type === "bun")[0];
   const ingredientsWithoutBun = data.filter((el) => el.type !== "bun");
   return (
@@ -18,7 +18,7 @@ function BurgerConstructorList() {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={bun.name}
+          text={`${bun.name} (верх)`}
           price={bun.price}
           thumbnail={bun.image}
         />
@@ -32,7 +32,7 @@ function BurgerConstructorList() {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={bun.name}
+          text={`${bun.name} (низ)`}
           price={bun.price}
           thumbnail={bun.image}
         />

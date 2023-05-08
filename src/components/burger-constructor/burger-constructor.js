@@ -3,10 +3,10 @@ import BurgerConstrucorInfo from "./burger-constructor-info/burger-constructor-i
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import styles from "./burger-constructor.module.css";
 import classNames from "classnames";
-import { IngredientsContext } from "../../services/ingredientsContext";
+import { SelectedIngredientsContext } from "../../services/selectedIngredientsContext";
 
 function BurgerConstrucor() {
-  const [choosedIngredients, setChoosedIngredients] = useState([
+  const [selectedIngredients] = useState([
     {
       _id: "643d69a5c3f7b9001cfa093c",
       name: "Краторная булка N-200i",
@@ -113,10 +113,10 @@ function BurgerConstrucor() {
   );
   return (
     <div className={burgerConstructorWrapClassNames}>
-      <IngredientsContext.Provider value={choosedIngredients}>
+      <SelectedIngredientsContext.Provider value={selectedIngredients}>
         <BurgerConstructorList />
         <BurgerConstrucorInfo />
-      </IngredientsContext.Provider>
+      </SelectedIngredientsContext.Provider>
     </div>
   );
 }
