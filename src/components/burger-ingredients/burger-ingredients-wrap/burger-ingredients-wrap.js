@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import BurgerIngredientsList from "../burger-ingredient-list/burger-ingredients-list";
 import styles from "./burger-ingredients-wrap.module.css";
+import { IngredientsContext } from "../../../services/ingredientsContext";
 
-function BurgerIngredientsWrap({ data }) {
+function BurgerIngredientsWrap() {
+  const data = useContext(IngredientsContext);
   const names = {
     bun: "Булки",
     sauce: "Соусы",
