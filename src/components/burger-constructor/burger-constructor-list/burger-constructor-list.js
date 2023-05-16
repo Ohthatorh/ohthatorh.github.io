@@ -2,18 +2,47 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import BurgerConstrucorItem from "../burger-constructor-item/burger-constructor-item";
 import styles from "./burger-constructor-list.module.css";
 import classNames from "classnames";
-import { SelectedIngredientsContext } from "../../../services/selectedIngredientsContext";
-import { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from "react-dnd";
+import {
+  SET_BUN_INGREDIENT,
+  UPDATE_INGREDIENTS,
+} from "../../../services/actions/currentIngredients";
 
 function BurgerConstructorList() {
+  const dispatch = useDispatch();
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "ingredient",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(item) {
+      if (item.type === "bun") {
+        dispatch({
+          type: SET_BUN_INGREDIENT,
+          item,
+        });
+      } else {
+        dispatch({
+          type: UPDATE_INGREDIENTS,
+          item,
+        });
+      }
+    },
+  });
+  const borderColor = isHover ? "lightgreen" : "transparent";
   const burgerConstructorListWrapClassNames = classNames(
     `${styles.burgerConstructorListWrap} mb-10`
   );
-  const data = useContext(SelectedIngredientsContext);
+  const data = useSelector((store) => store.currentIngredients.items);
   const bun = data.filter((el) => el.type === "bun")[0];
   const ingredientsWithoutBun = data.filter((el) => el.type !== "bun");
   return (
-    <div className={burgerConstructorListWrapClassNames}>
+    <div
+      className={burgerConstructorListWrapClassNames}
+      ref={dropTarget}
+      style={{ borderColor }}
+    >
       <div className={styles.burgerConstructorFixed}>
         <ConstructorElement
           type="top"

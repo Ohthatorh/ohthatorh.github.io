@@ -1,13 +1,13 @@
 import { checkResponse } from "./check-response";
 const NORMA_API = "https://norma.nomoreparties.space/api";
 
-export function getIngredients() {
+export function getIngredientsRequest() {
   return fetch(`${NORMA_API}/ingredients`)
     .then(checkResponse)
     .then((res) => res);
 }
 
-export function postOrder(data) {
+export function postOrderRequest(data) {
   return fetch(`${NORMA_API}/orders`, {
     method: "POST",
     headers: {

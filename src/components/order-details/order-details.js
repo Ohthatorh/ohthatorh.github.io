@@ -4,7 +4,7 @@ import classNames from "classnames";
 import Modal from "../modal/modal";
 import doneImage from "../../images/done.svg";
 
-function OrderDetails({ order, onClose }) {
+function OrderDetails({ orderId, onClose }) {
   const orderNumberClassNames = classNames(
     `${styles.orderNumber} text text_type_digits-large mb-8`
   );
@@ -14,7 +14,7 @@ function OrderDetails({ order, onClose }) {
   return (
     <Modal onClose={onClose}>
       <div className={styles.orderModal}>
-        <p className={orderNumberClassNames}>{order.orderId}</p>
+        <p className={orderNumberClassNames}>{orderId}</p>
         <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
         <img className="mb-15" src={doneImage} alt="Готовим заказ" />
         <p className="text text_type_main-default mb-2">
@@ -29,7 +29,7 @@ function OrderDetails({ order, onClose }) {
 }
 
 OrderDetails.propTypes = {
-  order: PropTypes.object.isRequired,
+  orderId: PropTypes.number.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 

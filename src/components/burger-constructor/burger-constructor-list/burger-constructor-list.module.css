@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  height: 465px;
+  max-height: 465px;
   overflow-x: hidden;
 }
 
@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border: 2px dashed transparent;
 }
 
 .burgerConstructorList::-webkit-scrollbar {

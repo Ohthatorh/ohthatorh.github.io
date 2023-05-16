@@ -1,14 +1,19 @@
-import { useContext } from "react";
+import { useEffect } from "react";
 import BurgerIngredientsList from "../burger-ingredient-list/burger-ingredients-list";
 import styles from "./burger-ingredients-wrap.module.css";
-import { IngredientsContext } from "../../../services/ingredientsContext";
+import { getListIngredients } from "../../../services/actions/ingredients";
+import { useDispatch, useSelector } from "react-redux";
 
 function BurgerIngredientsWrap() {
-  const data = useContext(IngredientsContext);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getListIngredients());
+  }, []);
+  const data = useSelector((store) => store.ingredients.items);
   const names = {
     bun: "Булки",
     sauce: "Соусы",
-    main: "Ингредиенты",
+    main: "Начинки",
   };
   let structureData = {};
   data.forEach((el) => {
