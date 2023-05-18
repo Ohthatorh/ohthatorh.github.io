@@ -1,13 +1,15 @@
 import { useEffect } from "react";
+import PropTypes from "prop-types";
 import BurgerIngredientsList from "../burger-ingredient-list/burger-ingredients-list";
 import styles from "./burger-ingredients-wrap.module.css";
 import { getListIngredients } from "../../../services/actions/ingredients";
 import { useDispatch, useSelector } from "react-redux";
 
-function BurgerIngredientsWrap() {
+function BurgerIngredientsWrap({ setCurrentTab }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getListIngredients());
+    //eslint-disable-next-line
   }, []);
   const data = useSelector((store) => store.ingredients.items);
   const names = {
@@ -22,13 +24,30 @@ function BurgerIngredientsWrap() {
     }
     structureData[el.type].items.push(el);
   });
+  const handleScroll = (e) => {
+    const scrollContainerTopPosition = e.target.scrollTop;
+    if (scrollContainerTopPosition === 0) {
+      setCurrentTab("bun");
+    } else if (
+      scrollContainerTopPosition >= 275 &&
+      scrollContainerTopPosition <= 1240
+    ) {
+      setCurrentTab("main");
+    } else if (scrollContainerTopPosition >= 1240) {
+      setCurrentTab("sauce");
+    }
+  };
   return (
-    <ul className={styles.burgerIngredientsWrap}>
+    <ul className={styles.burgerIngredientsWrap} onScroll={handleScroll}>
       {Object.values(structureData).map((el, index) => {
         return <BurgerIngredientsList item={el} key={index} />;
       })}
     </ul>
   );
 }
+
+BurgerIngredientsWrap.propTypes = {
+  setCurrentTab: PropTypes.func.isRequired,
+};
 
 export default BurgerIngredientsWrap;

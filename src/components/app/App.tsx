@@ -4,7 +4,6 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstrucor from "../burger-constructor/burger-constructor";
 import { getIngredientsRequest } from "../../utils/burger-api";
-import { IngredientsContext } from "../../services/ingredientsContext";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -32,10 +31,8 @@ function App() {
         <main>
           {!data.isLoading && data.ingredients && (
             <section className="burgerMain container">
-              <IngredientsContext.Provider value={data.ingredients}>
-                <BurgerIngredients />
-                <BurgerConstrucor />
-              </IngredientsContext.Provider>
+              <BurgerIngredients />
+              <BurgerConstrucor />
             </section>
           )}
         </main>

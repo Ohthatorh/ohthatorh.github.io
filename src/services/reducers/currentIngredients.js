@@ -2,6 +2,7 @@ import {
   REMOVE_INGREDIENT,
   SET_BUN_INGREDIENT,
   UPDATE_INGREDIENTS,
+  SORT_INGREDIENTS,
 } from "../actions/currentIngredients";
 
 const initialState = {
@@ -32,7 +33,7 @@ export const currentIngredientsReducer = (state = initialState, action) => {
     }
     case REMOVE_INGREDIENT: {
       return {
-        items: state.items.filter((item) => item._id !== action.id),
+        items: state.items.filter((item, index) => index !== action.index),
       };
     }
     case SET_BUN_INGREDIENT: {
@@ -40,6 +41,12 @@ export const currentIngredientsReducer = (state = initialState, action) => {
         items: state.items.map((item) =>
           item.type === "bun" ? action.item : item
         ),
+      };
+    }
+    case SORT_INGREDIENTS: {
+      return {
+        ...state,
+        items: action.items,
       };
     }
     default: {

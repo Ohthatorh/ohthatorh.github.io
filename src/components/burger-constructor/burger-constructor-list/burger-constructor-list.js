@@ -6,8 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
   SET_BUN_INGREDIENT,
+  SORT_INGREDIENTS,
   UPDATE_INGREDIENTS,
 } from "../../../services/actions/currentIngredients";
+import update from "immutability-helper";
 
 function BurgerConstructorList() {
   const dispatch = useDispatch();
@@ -37,6 +39,18 @@ function BurgerConstructorList() {
   const data = useSelector((store) => store.currentIngredients.items);
   const bun = data.filter((el) => el.type === "bun")[0];
   const ingredientsWithoutBun = data.filter((el) => el.type !== "bun");
+  const moveCard = (dragIndex, hoverIndex) => {
+    const sortedIngredients = update(ingredientsWithoutBun, {
+      $splice: [
+        [dragIndex, 1],
+        [hoverIndex, 0, ingredientsWithoutBun[dragIndex]],
+      ],
+    });
+    dispatch({
+      type: SORT_INGREDIENTS,
+      items: [bun, ...sortedIngredients],
+    });
+  };
   return (
     <div
       className={burgerConstructorListWrapClassNames}
@@ -54,7 +68,14 @@ function BurgerConstructorList() {
       </div>
       <ul className={styles.burgerConstructorList}>
         {ingredientsWithoutBun.map((el, index) => {
-          return <BurgerConstrucorItem item={el} key={index} />;
+          return (
+            <BurgerConstrucorItem
+              item={el}
+              key={index}
+              index={index}
+              moveCard={moveCard}
+            />
+          );
         })}
       </ul>
       <div className={styles.burgerConstructorFixed}>
