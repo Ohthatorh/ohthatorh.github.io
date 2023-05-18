@@ -9,28 +9,6 @@ import OrderDetails from "../../order-details/order-details";
 import { useDispatch, useSelector } from "react-redux";
 import { postOrder } from "../../../services/actions/order";
 
-// const initialState = {
-//   hasError: false,
-//   isPending: false,
-//   orderId: "",
-// };
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case "pending":
-//       return { ...state, hasError: false, isPending: true };
-//     case "success":
-//       return {
-//         orderId: action.orderId,
-//         isPending: false,
-//         hasError: true,
-//       };
-//     case "error":
-//       return { ...state, isPending: false, hasError: true };
-//     default:
-//       throw new Error(`Wrong type of action: ${action.type}`);
-//   }
-// }
-
 function BurgerConstrucorInfo() {
   const [showModal, setShowModal] = useState(false);
   const [amount, setAmount] = useState(0);
@@ -40,16 +18,15 @@ function BurgerConstrucorInfo() {
   const dispatch = useDispatch();
   const ingredients = useSelector((store) => store.currentIngredients.items);
   const { orderId } = useSelector((store) => store.order);
-  const bun = ingredients.filter((el) => el.type === "bun")[0];
-  const ingredientsWithoutBun = ingredients.filter((el) => el.type !== "bun");
+  const bun = useSelector((store) => store.currentIngredients.bun);
   useEffect(() => {
-    const countPrices = ingredientsWithoutBun.length
-      ? ingredientsWithoutBun.reduce((sum, a) => sum + a.price, 0) +
-        bun.price * 2
+    const countPrices = ingredients.length
+      ? ingredients.reduce((sum, a) => sum + a.price, 0) +
+        (bun ? bun.price * 2 : 0)
       : 0;
     setAmount(countPrices);
     //eslint-disable-next-line
-  }, [ingredients]);
+  }, [ingredients, bun]);
 
   const handleOpenModal = () => {
     const choosedIngredients = ingredients.map((el) => el._id);
@@ -72,6 +49,7 @@ function BurgerConstrucorInfo() {
           type="primary"
           size="large"
           onClick={handleOpenModal}
+          disabled={!ingredients.length && !bun}
         >
           Оформить заказ
         </Button>

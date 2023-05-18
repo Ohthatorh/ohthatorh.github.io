@@ -2,6 +2,7 @@ import {
   POST_ORDER_REQUEST,
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
+  CLEAR_ORDER,
 } from "../actions/order";
 
 const initialState = {
@@ -30,6 +31,9 @@ export const orderReducer = (state = initialState, action) => {
     }
     case POST_ORDER_FAILED: {
       return { ...state, hasError: true, isPending: false };
+    }
+    case CLEAR_ORDER: {
+      return { hasError: false, isPending: false, orderId: "", orderName: "" };
     }
     default: {
       return state;

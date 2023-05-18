@@ -36,7 +36,6 @@ function App() {
             </section>
           )}
         </main>
-        <div id="modals"></div>
       </div>
     </DndProvider>
   );

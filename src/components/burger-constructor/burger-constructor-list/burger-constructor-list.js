@@ -10,8 +10,12 @@ import {
   UPDATE_INGREDIENTS,
 } from "../../../services/actions/currentIngredients";
 import update from "immutability-helper";
+import { v4 as uuidv4 } from "uuid";
 
 function BurgerConstructorList() {
+  const burgerConstructorListWrapClassNames = classNames(
+    `${styles.burgerConstructorListWrap} mb-10`
+  );
   const dispatch = useDispatch();
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
@@ -33,61 +37,69 @@ function BurgerConstructorList() {
     },
   });
   const borderColor = isHover ? "lightgreen" : "transparent";
-  const burgerConstructorListWrapClassNames = classNames(
-    `${styles.burgerConstructorListWrap} mb-10`
-  );
+  const bun = useSelector((store) => store.currentIngredients.bun);
   const data = useSelector((store) => store.currentIngredients.items);
-  const bun = data.filter((el) => el.type === "bun")[0];
-  const ingredientsWithoutBun = data.filter((el) => el.type !== "bun");
   const moveCard = (dragIndex, hoverIndex) => {
-    const sortedIngredients = update(ingredientsWithoutBun, {
+    const sortedIngredients = update(data, {
       $splice: [
         [dragIndex, 1],
-        [hoverIndex, 0, ingredientsWithoutBun[dragIndex]],
+        [hoverIndex, 0, data[dragIndex]],
       ],
     });
     dispatch({
       type: SORT_INGREDIENTS,
-      items: [bun, ...sortedIngredients],
+      items: sortedIngredients,
     });
   };
   return (
-    <div
-      className={burgerConstructorListWrapClassNames}
-      ref={dropTarget}
-      style={{ borderColor }}
-    >
-      <div className={styles.burgerConstructorFixed}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${bun.name} (верх)`}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
-      </div>
-      <ul className={styles.burgerConstructorList}>
-        {ingredientsWithoutBun.map((el, index) => {
-          return (
-            <BurgerConstrucorItem
-              item={el}
-              key={index}
-              index={index}
-              moveCard={moveCard}
+    <>
+      <p
+        className="text text_type_main-medium mb-5"
+        style={{ textAlign: "right" }}
+      >
+        Перенесите ингредиенты
+      </p>
+      <div
+        className={burgerConstructorListWrapClassNames}
+        ref={dropTarget}
+        style={{ borderColor }}
+      >
+        {bun && (
+          <div className={styles.burgerConstructorFixed}>
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${bun.name} (верх)`}
+              price={bun.price}
+              thumbnail={bun.image}
             />
-          );
-        })}
-      </ul>
-      <div className={styles.burgerConstructorFixed}>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={`${bun.name} (низ)`}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+          </div>
+        )}
+        <ul className={styles.burgerConstructorList}>
+          {data.map((el, index) => {
+            return (
+              <BurgerConstrucorItem
+                item={el}
+                key={uuidv4()}
+                index={index}
+                moveCard={moveCard}
+              />
+            );
+          })}
+        </ul>
+        {bun && (
+          <div className={styles.burgerConstructorFixed}>
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${bun.name} (низ)`}
+              price={bun.price}
+              thumbnail={bun.image}
+            />
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 }
 

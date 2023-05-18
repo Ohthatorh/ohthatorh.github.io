@@ -12,8 +12,9 @@ import {
   REMOVE_CURRENT_INGREDIENT,
   SET_CURRENT_INGREDIENT,
 } from "../../../services/actions/currentIngredient";
+import { v4 as uuidv4 } from "uuid";
 
-function BurgerIngredientItem({ item, index }) {
+function BurgerIngredientItem({ item }) {
   const dispatch = useDispatch();
   const [, dragRef] = useDrag({
     type: "ingredient",
@@ -52,7 +53,7 @@ function BurgerIngredientItem({ item, index }) {
       )}
       <li
         ref={dragRef}
-        key={index}
+        key={uuidv4()}
         className={styles.burgerItem}
         onClick={handleOpenModal}
       >

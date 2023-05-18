@@ -19,7 +19,7 @@ function BurgerConstrucorItem({ item, index, moveCard }) {
   const handleClose = () => {
     dispatch({
       type: REMOVE_INGREDIENT,
-      index: ++index,
+      index: index,
     });
   };
   const [, dragRef] = useDrag({
