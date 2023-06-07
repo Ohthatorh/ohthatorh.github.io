@@ -1,18 +1,19 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import { useContext } from "react";
+import { SelectedTabContext } from "../../../services/contexts/selectedTabContext";
 
 function BurgerIngredientsTabs() {
-  const [current, setCurrent] = React.useState("Булки");
+  const current = useContext(SelectedTabContext);
   return (
     <div className="mb-10" style={{ display: "flex" }}>
-      <Tab value="Булки" active={current === "Булки"} onClick={setCurrent}>
+      <Tab value="Булки" active={current === "bun"}>
         Булки
       </Tab>
-      <Tab value="Соусы" active={current === "Соусы"} onClick={setCurrent}>
-        Соусы
-      </Tab>
-      <Tab value="Начинки" active={current === "Начинки"} onClick={setCurrent}>
+      <Tab value="Начинки" active={current === "main"}>
         Начинки
+      </Tab>
+      <Tab value="Соусы" active={current === "sauce"}>
+        Соусы
       </Tab>
     </div>
   );

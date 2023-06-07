@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstrucor from "../burger-constructor/burger-constructor";
-import { getIngredients } from "../../utils/burger-api";
-import { IngredientsContext } from "../../services/ingredientsContext";
+import { getIngredientsRequest } from "../../utils/burger-api";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const [data, setData] = useState({
@@ -14,7 +15,7 @@ function App() {
   });
   useEffect(() => {
     setData({ ...data, isLoading: true, hasError: false });
-    getIngredients()
+    getIngredientsRequest()
       .then((res) =>
         setData({ ...data, isLoading: false, ingredients: res.data })
       )
@@ -24,20 +25,19 @@ function App() {
     // eslint-disable-next-line
   }, []);
   return (
-    <div className="App">
-      <AppHeader />
-      <main>
-        {!data.isLoading && data.ingredients && (
-          <section className="burgerMain container">
-            <IngredientsContext.Provider value={data.ingredients}>
+    <DndProvider backend={HTML5Backend}>
+      <div className="App">
+        <AppHeader />
+        <main>
+          {!data.isLoading && data.ingredients && (
+            <section className="burgerMain container">
               <BurgerIngredients />
               <BurgerConstrucor />
-            </IngredientsContext.Provider>
-          </section>
-        )}
-      </main>
-      <div id="modals"></div>
-    </div>
+            </section>
+          )}
+        </main>
+      </div>
+    </DndProvider>
   );
 }
 
