@@ -1,8 +1,10 @@
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./header-navigation.module.css";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function HeaderNavigation() {
+function HeaderNavigation({ pathname }) {
   const navLinkClassNamesActive = classNames(
     `${styles.navLink} ${styles.navLinkActive} pl-5 pr-5 pb-5 pt-5`
   );
@@ -11,14 +13,28 @@ function HeaderNavigation() {
     <nav>
       <ul className={styles.navList}>
         <li className="mr-2">
-          <a className={navLinkClassNamesActive} href="../">
-            <BurgerIcon type="primary" />
+          <Link
+            className={
+              pathname === "/" ? navLinkClassNamesActive : navLinkClassNames
+            }
+            to={{ pathname: "/" }}
+          >
+            <BurgerIcon type={pathname === "/" ? "primary" : "secondary"} />
             <p className="text text_type_main-default ml-2">Конструктор</p>
-          </a>
+          </Link>
         </li>
         <li>
-          <a className={navLinkClassNames} href="../">
-            <BurgerIcon type="secondary" />
+          <a
+            className={
+              pathname === "/lenta"
+                ? navLinkClassNamesActive
+                : navLinkClassNames
+            }
+            href="../"
+          >
+            <BurgerIcon
+              type={pathname === "/lenta" ? "primary" : "secondary"}
+            />
             <p className="text text_type_main-default ml-2">Лента заказов</p>
           </a>
         </li>
@@ -26,5 +42,8 @@ function HeaderNavigation() {
     </nav>
   );
 }
+HeaderNavigation.propTypes = {
+  pathname: PropTypes.string.isRequired,
+};
 
 export default HeaderNavigation;

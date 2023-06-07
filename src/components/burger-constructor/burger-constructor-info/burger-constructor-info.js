@@ -8,6 +8,7 @@ import classNames from "classnames";
 import OrderDetails from "../../order-details/order-details";
 import { useDispatch, useSelector } from "react-redux";
 import { postOrder } from "../../../services/actions/order";
+import { useNavigate } from "react-router-dom";
 
 function BurgerConstrucorInfo() {
   const [showModal, setShowModal] = useState(false);
@@ -16,9 +17,11 @@ function BurgerConstrucorInfo() {
     `${styles.burgerConstructorInfoText} text text_type_digits-medium mr-10`
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const ingredients = useSelector((store) => store.currentIngredients.items);
   const { orderId } = useSelector((store) => store.order);
   const bun = useSelector((store) => store.currentIngredients.bun);
+  const user = useSelector((store) => store.user.user);
   useEffect(() => {
     const countPrices = ingredients.length
       ? ingredients.reduce((sum, a) => sum + a.price, 0) +
@@ -31,7 +34,11 @@ function BurgerConstrucorInfo() {
   const handleOpenModal = () => {
     const choosedIngredients = ingredients.map((el) => el._id);
     choosedIngredients.push(bun._id);
-    dispatch(postOrder(choosedIngredients, setShowModal));
+    if (user.name) {
+      dispatch(postOrder(choosedIngredients, setShowModal));
+    } else {
+      navigate("/login");
+    }
   };
   const handleCloseModal = () => setShowModal(false);
   return (

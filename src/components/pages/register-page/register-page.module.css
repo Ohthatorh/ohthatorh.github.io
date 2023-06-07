@@ -1,0 +1,15 @@
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.main {
+  padding: 100px 0;
+}
+.link {
+  color: var(--interface);
+}
+.text {
+  color: var(--darkGreyColor);
+}

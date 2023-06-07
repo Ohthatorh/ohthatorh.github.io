@@ -1,0 +1,17 @@
+.modalWrap {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+.modalImg {
+  width: 100%;
+}
+.modalInfoList {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.modalInfoItemTitle {
+  color: var(--darkGreyColor);
+}

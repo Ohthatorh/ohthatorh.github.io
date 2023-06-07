@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Counter,
   CurrencyIcon,
@@ -29,17 +29,27 @@ function BurgerIngredientItem({ item }) {
     `${styles.textBurgerItem}`,
     "text text_type_digits-default mb-1"
   );
+  useEffect(() => {
+    if (
+      sessionStorage.getItem("openModalIngredient") &&
+      JSON.parse(sessionStorage.getItem("openModalIngredient")) === item._id
+    ) {
+      handleOpenModal();
+    }
+  }, []);
   const handleOpenModal = () => {
     dispatch({
       type: SET_CURRENT_INGREDIENT,
       item,
     });
+    sessionStorage.setItem("openModalIngredient", JSON.stringify(item._id));
     setShowModal(true);
   };
   const handleCloseModal = () => {
     dispatch({
       type: REMOVE_CURRENT_INGREDIENT,
     });
+    sessionStorage.removeItem("openModalIngredient");
     setShowModal(false);
   };
   return (

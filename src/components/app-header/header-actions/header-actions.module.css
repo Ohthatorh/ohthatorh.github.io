@@ -1,6 +1,10 @@
 .personal {
   display: flex;
-  color: #8585ad;
+  color: var(--darkGreyColor);
+}
+.personalActive {
+  display: flex;
+  color: var(--whiteColor);
 }
 .personal svg {
   margin-right: 8px;
