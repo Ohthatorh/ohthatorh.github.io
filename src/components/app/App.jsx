@@ -8,8 +8,14 @@ import {
   ProfilePage,
   RegisterPage,
   ResetPasswordPage,
-} from "../pages";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+} from "../../pages/index";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import {
   ProtectedRoute,
   ProtectedRouteAuth,
@@ -17,15 +23,26 @@ import {
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserInfo } from "../../services/actions/user";
+import AppHeader from "../app-header/app-header";
+import { getListIngredients } from "../../services/actions/ingredients";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import { REMOVE_CURRENT_INGREDIENT } from "../../services/actions/currentIngredient";
 
-function App() {
+const ModalSwitch = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUserInfo());
-  }, [dispatch]);
+  const background = location.state && location.state.background;
+  const handleModalClose = () => {
+    dispatch({
+      type: REMOVE_CURRENT_INGREDIENT,
+    });
+    navigate(-1);
+  };
   return (
-    <BrowserRouter>
-      <Routes>
+    <>
+      <AppHeader />
+      <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
@@ -54,6 +71,32 @@ function App() {
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      {background && (
+        <Routes>
+          <Route
+            path="/ingredients/:ingredientId"
+            element={
+              <IngredientDetails
+                text="Детали ингредиента"
+                onClose={handleModalClose}
+              />
+            }
+          />
+        </Routes>
+      )}
+    </>
+  );
+};
+
+function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getListIngredients());
+    dispatch(getUserInfo());
+  }, []);
+  return (
+    <BrowserRouter>
+      <ModalSwitch />
     </BrowserRouter>
   );
 }

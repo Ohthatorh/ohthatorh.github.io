@@ -9,17 +9,21 @@ export function sendForgotLetter(data) {
     dispatch({
       type: SEND_FORGOT_LETTER_REQUEST,
     });
-    sendForgotLetterRequest(data).then((res) => {
-      if (res && res.success) {
-        dispatch({
-          type: SEND_FORGOT_LETTER_SUCCESS,
-          message: res.message,
-        });
-      } else {
-        dispatch({
-          type: SEND_FORGOT_LETTER_FAILED,
-        });
-      }
-    });
+    sendForgotLetterRequest(data)
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: SEND_FORGOT_LETTER_SUCCESS,
+            message: res.message,
+          });
+        } else {
+          dispatch({
+            type: SEND_FORGOT_LETTER_FAILED,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }

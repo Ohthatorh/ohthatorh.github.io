@@ -23,6 +23,7 @@ export function getUserInfo() {
       })
       .then((res) => res)
       .catch((err) => {
+        if (err.message === "You should be authorised") return;
         if (err.message === "jwt expired") {
           dispatch(refreshToken(getUserInfo()));
         } else {

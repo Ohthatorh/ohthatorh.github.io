@@ -9,16 +9,20 @@ export function sendResetPassword(data) {
     dispatch({
       type: SEND_RESET_PASSWORD_REQUEST,
     });
-    sendResetPasswordRequest(data).then((res) => {
-      if (res && res.success) {
-        dispatch({
-          type: SEND_RESET_PASSWORD_SUCCESS,
-        });
-      } else {
-        dispatch({
-          type: SEND_RESET_PASSWORD_FAILED,
-        });
-      }
-    });
+    sendResetPasswordRequest(data)
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: SEND_RESET_PASSWORD_SUCCESS,
+          });
+        } else {
+          dispatch({
+            type: SEND_RESET_PASSWORD_FAILED,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }

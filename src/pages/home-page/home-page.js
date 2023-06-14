@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import AppHeader from "../../app-header/app-header";
-import BurgerIngredients from "../../burger-ingredients/burger-ingredients";
-import BurgerConstrucor from "../../burger-constructor/burger-constructor";
-import { getIngredientsRequest } from "../../../utils/burger-api";
+import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
+import BurgerConstrucor from "../../components/burger-constructor/burger-constructor";
+import { getIngredientsRequest } from "../../utils/burger-api";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from "./home-page.module.css";
@@ -28,7 +27,6 @@ export function HomePage() {
   }, []);
   return (
     <DndProvider backend={HTML5Backend}>
-      <AppHeader />
       <main>
         {!data.isLoading && data.ingredients && (
           <section className={burgerMainClassNames}>

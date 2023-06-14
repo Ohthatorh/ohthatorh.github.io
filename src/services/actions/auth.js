@@ -19,19 +19,23 @@ export function auth(data) {
     dispatch({
       type: AUTH_REQUEST,
     });
-    authRequest(data).then((res) => {
-      if (res && res.success) {
-        saveTokens(res.refreshToken, res.accessToken);
-        dispatch({
-          type: AUTH_SUCCESS,
-          user: res.user,
-        });
-      } else {
-        dispatch({
-          type: AUTH_ERROR,
-        });
-      }
-    });
+    authRequest(data)
+      .then((res) => {
+        if (res && res.success) {
+          saveTokens(res.refreshToken, res.accessToken);
+          dispatch({
+            type: AUTH_SUCCESS,
+            user: res.user,
+          });
+        } else {
+          dispatch({
+            type: AUTH_ERROR,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }
 export function registration(data) {
@@ -39,19 +43,23 @@ export function registration(data) {
     dispatch({
       type: REGISTER_REQUEST,
     });
-    registerRequest(data).then((res) => {
-      if (res && res.success) {
-        saveTokens(res.refreshToken, res.accessToken);
-        dispatch({
-          type: REGISTER_SUCCESS,
-          user: res.user,
-        });
-      } else {
-        dispatch({
-          type: REGISTER_ERROR,
-        });
-      }
-    });
+    registerRequest(data)
+      .then((res) => {
+        if (res && res.success) {
+          saveTokens(res.refreshToken, res.accessToken);
+          dispatch({
+            type: REGISTER_SUCCESS,
+            user: res.user,
+          });
+        } else {
+          dispatch({
+            type: REGISTER_ERROR,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }
 export function logout() {
@@ -59,17 +67,21 @@ export function logout() {
     dispatch({
       type: LOGOUT_REQUEST,
     });
-    logoutRequest().then((res) => {
-      if (res && res.success) {
-        dispatch({
-          type: LOGOUT_SUCCESS,
-        });
-        clearTokens();
-      } else {
-        dispatch({
-          type: LOGOUT_ERROR,
-        });
-      }
-    });
+    logoutRequest()
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: LOGOUT_SUCCESS,
+          });
+          clearTokens();
+        } else {
+          dispatch({
+            type: LOGOUT_ERROR,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }

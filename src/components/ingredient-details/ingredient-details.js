@@ -2,9 +2,23 @@ import styles from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Modal from "../modal/modal";
-import ingredientsPropTypes from "../../propTypes/ingredients";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-function IngredientDetails({ text, item, onClose }) {
+function IngredientDetails({ text, onClose }) {
+  const [item, setItem] = useState({ image_mobile: "", image: "", name: "" });
+  const { ingredientId } = useParams();
+  const burgerIngredientsList = useSelector((store) => store.ingredients.items);
+  useEffect(() => {
+    if (burgerIngredientsList.length) {
+      setItem(
+        burgerIngredientsList.filter(
+          (ingredient) => ingredient._id === ingredientId
+        )[0]
+      );
+    }
+  }, [burgerIngredientsList]);
   const modalInfoItemImgClassNames = classNames(`${styles.modalImg} mb-4`);
   const modalInfoItemTitleClassNames = classNames(
     `${styles.modalInfoItemTitle} text text_type_main-default mb-2`
@@ -50,7 +64,6 @@ function IngredientDetails({ text, item, onClose }) {
 
 IngredientDetails.propTypes = {
   text: PropTypes.string.isRequired,
-  item: ingredientsPropTypes.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 

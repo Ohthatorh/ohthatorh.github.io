@@ -1,15 +1,12 @@
-import { checkResponse } from "./check-response";
 import { getCookie } from "./cookie";
-const NORMA_API = "https://norma.nomoreparties.space/api";
+import { request } from "./request";
 
 export function getIngredientsRequest() {
-  return fetch(`${NORMA_API}/ingredients`)
-    .then(checkResponse)
-    .then((res) => res);
+  return request("/ingredients");
 }
 
 export function postOrderRequest(data) {
-  return fetch(`${NORMA_API}/orders`, {
+  return request("/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,13 +14,11 @@ export function postOrderRequest(data) {
     body: JSON.stringify({
       ingredients: data,
     }),
-  })
-    .then(checkResponse)
-    .then((res) => res);
+  });
 }
 
 export function sendForgotLetterRequest(data) {
-  return fetch(`${NORMA_API}/password-reset`, {
+  return request("/password-reset", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,13 +26,11 @@ export function sendForgotLetterRequest(data) {
     body: JSON.stringify({
       email: data,
     }),
-  })
-    .then(checkResponse)
-    .then((res) => res);
+  });
 }
 
 export function sendResetPasswordRequest(data) {
-  return fetch(`${NORMA_API}/password-reset/reset`, {
+  return request("/password-reset/reset", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -46,13 +39,11 @@ export function sendResetPasswordRequest(data) {
       password: data.password,
       token: data.token,
     }),
-  })
-    .then(checkResponse)
-    .then((res) => res);
+  });
 }
 
-export async function authRequest(data) {
-  return await fetch(`${NORMA_API}/auth/login`, {
+export function authRequest(data) {
+  return request("/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -62,13 +53,11 @@ export async function authRequest(data) {
       password: data.password,
       name: data.name,
     }),
-  })
-    .then(checkResponse)
-    .then((res) => res);
+  });
 }
 
-export async function registerRequest(data) {
-  return await fetch(`${NORMA_API}/auth/register`, {
+export function registerRequest(data) {
+  return request("/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -78,13 +67,11 @@ export async function registerRequest(data) {
       password: data.password,
       name: data.name,
     }),
-  })
-    .then(checkResponse)
-    .then((res) => res);
+  });
 }
 
 export function logoutRequest() {
-  return fetch(`${NORMA_API}/auth/logout`, {
+  return request("/auth/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -92,13 +79,11 @@ export function logoutRequest() {
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
-  })
-    .then(checkResponse)
-    .then((res) => res);
+  });
 }
 
 export function refreshTokenRequest() {
-  return fetch(`${NORMA_API}/auth/token`, {
+  return request("/auth/token", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -106,36 +91,28 @@ export function refreshTokenRequest() {
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
-  })
-    .then(checkResponse)
-    .then((res) => res);
+  });
 }
 
-export async function getUserInfoRequest() {
+export function getUserInfoRequest() {
   const token = getCookie("accessToken");
-  if (token) {
-    return await fetch(`${NORMA_API}/auth/user`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    })
-      .then(checkResponse)
-      .then((res) => res);
-  }
+  return request("/auth/user", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
 }
 
 export function setUserDataRequest(data) {
   const token = getCookie("accessToken");
-  return fetch(`${NORMA_API}/auth/user`, {
+  return request("/auth/user", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: token,
     },
     body: JSON.stringify(data),
-  })
-    .then(checkResponse)
-    .then((res) => res);
+  });
 }
