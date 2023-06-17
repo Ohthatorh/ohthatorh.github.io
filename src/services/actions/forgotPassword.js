@@ -11,7 +11,7 @@ export function sendForgotLetter(data) {
     });
     sendForgotLetterRequest(data)
       .then((res) => {
-        if (res && res.success) {
+        if (res.success) {
           dispatch({
             type: SEND_FORGOT_LETTER_SUCCESS,
             message: res.message,

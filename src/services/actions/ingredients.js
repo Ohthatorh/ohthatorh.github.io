@@ -12,7 +12,7 @@ export function getListIngredients() {
     });
     await getIngredientsRequest()
       .then((res) => {
-        if (res && res.success) {
+        if (res.success) {
           dispatch({
             type: GET_INGREDIENTS_SUCCESS,
             items: res.data,

@@ -13,7 +13,7 @@ export function postOrder(data, showModal) {
     });
     postOrderRequest(data)
       .then((res) => {
-        if (res && res.success) {
+        if (res.success) {
           dispatch({
             type: POST_ORDER_SUCCESS,
             orderId: res.order.number,

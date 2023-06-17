@@ -80,7 +80,7 @@ function BurgerConstructorList() {
             return (
               <BurgerConstrucorItem
                 item={el}
-                key={uuidv4()}
+                key={el._id}
                 index={index}
                 moveCard={moveCard}
               />

@@ -5,14 +5,13 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { auth } from "../../services/actions/auth";
 import { useForm } from "../../services/hooks/useForm";
 
 export function LoginPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const mainClassNames = classNames(`${styles.main} container`);
   const textClassNames = classNames(
     `${styles.text} text text_type_main-default mb-4`
@@ -27,7 +26,6 @@ export function LoginPage() {
       return;
     }
     dispatch(auth(values));
-    navigate("/");
   };
   return (
     <main className={mainClassNames}>

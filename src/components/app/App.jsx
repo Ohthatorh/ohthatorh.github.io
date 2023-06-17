@@ -27,6 +27,7 @@ import AppHeader from "../app-header/app-header";
 import { getListIngredients } from "../../services/actions/ingredients";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { REMOVE_CURRENT_INGREDIENT } from "../../services/actions/currentIngredient";
+import Modal from "../modal/modal";
 
 const ModalSwitch = () => {
   const location = useLocation();
@@ -46,24 +47,33 @@ const ModalSwitch = () => {
         <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
-          element={<ProtectedRouteAuth element={<LoginPage />} />}
+          element={<ProtectedRoute onlyUnAuth={true} element={<LoginPage />} />}
         />
         <Route
           path="/register"
-          element={<ProtectedRouteAuth element={<RegisterPage />} />}
+          element={
+            <ProtectedRoute onlyUnAuth={true} element={<RegisterPage />} />
+          }
         />
         <Route
           path="/forgot-password"
-          element={<ProtectedRouteAuth element={<ForgotPasswordPage />} />}
+          element={
+            <ProtectedRoute
+              onlyUnAuth={true}
+              element={<ForgotPasswordPage />}
+            />
+          }
         />
         <Route
           path="/reset-password"
-          element={<ProtectedRouteAuth element={<ResetPasswordPage />} />}
+          element={
+            <ProtectedRoute onlyUnAuth={true} element={<ResetPasswordPage />} />
+          }
         />
         <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
         <Route
           path="/profile"
-          element={<ProtectedRoute element={<ProfilePage />} />}
+          element={<ProtectedRoute path="/profile" element={<ProfilePage />} />}
         />
         <Route
           path="/profile/orders"
@@ -76,10 +86,9 @@ const ModalSwitch = () => {
           <Route
             path="/ingredients/:ingredientId"
             element={
-              <IngredientDetails
-                text="Детали ингредиента"
-                onClose={handleModalClose}
-              />
+              <Modal text="Детали ингредиента" onClose={handleModalClose}>
+                <IngredientDetails />
+              </Modal>
             }
           />
         </Routes>

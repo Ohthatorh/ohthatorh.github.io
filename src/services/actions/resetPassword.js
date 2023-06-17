@@ -11,7 +11,7 @@ export function sendResetPassword(data) {
     });
     sendResetPasswordRequest(data)
       .then((res) => {
-        if (res && res.success) {
+        if (res.success) {
           dispatch({
             type: SEND_RESET_PASSWORD_SUCCESS,
           });

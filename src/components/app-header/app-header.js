@@ -3,7 +3,7 @@ import styles from "./app-header.module.css";
 import HeaderNavigation from "./header-navigation/header-navigation";
 import HeaderActions from "./header-actions/header-actions";
 import classNames from "classnames";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function AppHeader() {
   const location = useLocation();
@@ -12,7 +12,9 @@ function AppHeader() {
     <header className="container">
       <div className={headerClassNames}>
         <HeaderNavigation pathname={location.pathname} />
-        <Logo />
+        <Link to={{ pathname: "/" }}>
+          <Logo />
+        </Link>
         <HeaderActions pathname={location.pathname} />
       </div>
     </header>

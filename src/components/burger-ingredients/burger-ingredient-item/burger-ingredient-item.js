@@ -27,12 +27,13 @@ function BurgerIngredientItem({ item }) {
   );
   return (
     <>
-      <li ref={dragRef} key={item._id} className={styles.burgerItem}>
+      <li ref={dragRef} key={item._id}>
         <Link
           to={{
             pathname: `/ingredients/${item._id}`,
           }}
           state={{ background: location }}
+          className={styles.burgerItem}
         >
           <picture className="pl-4 pr-4 pb-1">
             <source srcSet={item.image_mobile} media="(max-width: 767px)" />

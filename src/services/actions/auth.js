@@ -21,7 +21,7 @@ export function auth(data) {
     });
     authRequest(data)
       .then((res) => {
-        if (res && res.success) {
+        if (res.success) {
           saveTokens(res.refreshToken, res.accessToken);
           dispatch({
             type: AUTH_SUCCESS,
@@ -45,7 +45,7 @@ export function registration(data) {
     });
     registerRequest(data)
       .then((res) => {
-        if (res && res.success) {
+        if (res.success) {
           saveTokens(res.refreshToken, res.accessToken);
           dispatch({
             type: REGISTER_SUCCESS,
@@ -69,7 +69,7 @@ export function logout() {
     });
     logoutRequest()
       .then((res) => {
-        if (res && res.success) {
+        if (res.success) {
           dispatch({
             type: LOGOUT_SUCCESS,
           });
