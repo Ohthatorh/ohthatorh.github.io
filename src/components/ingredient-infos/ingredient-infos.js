@@ -10,7 +10,6 @@ function IngredientInfos({ item }) {
   const modalInfoItemTextClassNames = classNames(
     `${styles.modalInfoItemTitle} text text_type_digits-default`
   );
-  console.log(item);
   return (
     <div className={styles.modalWrap}>
       <picture>

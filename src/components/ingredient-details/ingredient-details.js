@@ -17,7 +17,7 @@ function IngredientDetails() {
     }
   }, [burgerIngredientsList]);
 
-  return <IngredientInfos item={item} />;
+  return item.name && <IngredientInfos item={item} />;
 }
 
 export default IngredientDetails;

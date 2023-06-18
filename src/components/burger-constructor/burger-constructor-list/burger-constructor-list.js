@@ -31,7 +31,7 @@ function BurgerConstructorList() {
       } else {
         dispatch({
           type: UPDATE_INGREDIENTS,
-          item,
+          item: { ...item, uniqueId: uuidv4() },
         });
       }
     },
@@ -80,7 +80,7 @@ function BurgerConstructorList() {
             return (
               <BurgerConstrucorItem
                 item={el}
-                key={el._id}
+                key={el.uniqueId}
                 index={index}
                 moveCard={moveCard}
               />
