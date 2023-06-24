@@ -1,73 +1,52 @@
-import { useState } from "react";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredient-item.module.css";
 import classNames from "classnames";
-import IngredientDetails from "../../ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
-import {
-  REMOVE_CURRENT_INGREDIENT,
-  SET_CURRENT_INGREDIENT,
-} from "../../../services/actions/currentIngredient";
-import { v4 as uuidv4 } from "uuid";
+import { Link, useLocation } from "react-router-dom";
 
 function BurgerIngredientItem({ item }) {
-  const dispatch = useDispatch();
+  const location = useLocation();
   const [, dragRef] = useDrag({
     type: "ingredient",
     item,
   });
-  const [showModal, setShowModal] = useState(false);
-  const currentIngredients = useSelector(
-    (store) => store.currentIngredients.items
-  );
-  const count = currentIngredients.filter((el) => el._id === item._id).length;
+  const currentIngredients = useSelector((store) => store.currentIngredients);
+  const count =
+    item.type === "bun" && currentIngredients.bun
+      ? currentIngredients.bun._id === item._id
+        ? 1
+        : currentIngredients.items.filter((el) => el._id === item._id).length
+      : currentIngredients.items.filter((el) => el._id === item._id).length;
   const textClassNames = classNames(
     `${styles.textBurgerItem}`,
     "text text_type_digits-default mb-1"
   );
-  const handleOpenModal = () => {
-    dispatch({
-      type: SET_CURRENT_INGREDIENT,
-      item,
-    });
-    setShowModal(true);
-  };
-  const handleCloseModal = () => {
-    dispatch({
-      type: REMOVE_CURRENT_INGREDIENT,
-    });
-    setShowModal(false);
-  };
   return (
     <>
-      {showModal && (
-        <IngredientDetails
-          text="Детали ингредиента"
-          item={item}
-          onClose={handleCloseModal}
-        />
-      )}
-      <li
-        ref={dragRef}
-        key={uuidv4()}
-        className={styles.burgerItem}
-        onClick={handleOpenModal}
-      >
-        <picture className="pl-4 pr-4 pb-1">
-          <source srcSet={item.image_mobile} media="(max-width: 767px)" />
-          {/* <source srcset={item.image} media="(max-width: 1023px)" /> */}
-          <img src={item.image} alt={item.name} />
-        </picture>
-        <p className={textClassNames}>
-          {item.price}
-          <CurrencyIcon type="primary" />
-        </p>
-        <Counter count={count} size="default" extraClass="m-1" />
-        <p className="text text_type_main-default">{item.name}</p>
+      <li ref={dragRef} key={item._id}>
+        <Link
+          to={{
+            pathname: `/ingredients/${item._id}`,
+          }}
+          state={{ background: location }}
+          className={styles.burgerItem}
+        >
+          <picture className="pl-4 pr-4 pb-1">
+            <source srcSet={item.image_mobile} media="(max-width: 767px)" />
+            {/* <source srcset={item.image} media="(max-width: 1023px)" /> */}
+            <img src={item.image} alt={item.name} />
+          </picture>
+          <p className={textClassNames}>
+            {item.price}
+            <CurrencyIcon type="primary" />
+          </p>
+          <Counter count={count} size="default" extraClass="m-1" />
+          <p className="text text_type_main-default">{item.name}</p>
+        </Link>
       </li>
     </>
   );

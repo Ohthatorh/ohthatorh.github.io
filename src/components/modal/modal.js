@@ -11,7 +11,7 @@ function Modal({ children, text, onClose }) {
   const modalClassNames = classNames(`${styles.modal} pt-10 pr-10 pb-15 pl-10`);
   useEffect(() => {
     const close = (e) => {
-      if (e.keyCode === 27) {
+      if (e.key === "Escape") {
         onClose();
       }
     };

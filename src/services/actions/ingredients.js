@@ -6,13 +6,13 @@ export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
 export const CLEAR_INGREDIENTS = "CLEAR_INGREDIENTS";
 
 export function getListIngredients() {
-  return function (dispatch) {
+  return async function (dispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });
-    getIngredientsRequest()
+    await getIngredientsRequest()
       .then((res) => {
-        if (res && res.success) {
+        if (res.success) {
           dispatch({
             type: GET_INGREDIENTS_SUCCESS,
             items: res.data,

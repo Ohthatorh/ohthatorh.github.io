@@ -1,16 +1,9 @@
-import { useEffect } from "react";
 import PropTypes from "prop-types";
 import BurgerIngredientsList from "../burger-ingredient-list/burger-ingredients-list";
 import styles from "./burger-ingredients-wrap.module.css";
-import { getListIngredients } from "../../../services/actions/ingredients";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function BurgerIngredientsWrap({ setCurrentTab }) {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getListIngredients());
-    //eslint-disable-next-line
-  }, []);
   const data = useSelector((store) => store.ingredients.items);
   const names = {
     bun: "Булки",

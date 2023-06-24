@@ -1,0 +1,13 @@
+.main {
+  padding: 100px 0;
+  display: flex;
+}
+
+.text {
+  color: var(--darkGreyColor);
+  max-width: 320px;
+}
+
+.tabs {
+  margin-right: 60px;
+}

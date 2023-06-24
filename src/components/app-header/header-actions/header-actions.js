@@ -1,21 +1,22 @@
-import {
-  ProfileIcon,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./header-actions.module.css";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function HeaderActions() {
+function HeaderActions({ pathname }) {
   return (
-    <Button
-      extraClass={styles.personal}
-      htmlType="button"
-      type="secondary"
-      size="medium"
+    <Link
+      className={pathname === "/" ? styles.personal : styles.personalActive}
+      to={{ pathname: "/profile" }}
     >
-      <ProfileIcon type="secondary" />
-      Личный кабинет
-    </Button>
+      <ProfileIcon type={pathname === "/profile" ? "primary" : "secondary"} />
+      <p className="text text_type_main-default ml-2">Личный кабинет</p>
+    </Link>
   );
 }
+
+HeaderActions.propTypes = {
+  pathname: PropTypes.string.isRequired,
+};
 
 export default HeaderActions;
