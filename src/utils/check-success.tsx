@@ -1,4 +1,6 @@
-export const checkSuccess = (res: { success: boolean }) => {
+import { IResponse } from "../services/types/types";
+
+export const checkSuccess = (res: IResponse) => {
   if (res && res.success) {
     return res;
   }

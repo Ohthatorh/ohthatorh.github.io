@@ -2,11 +2,13 @@ import classNames from "classnames";
 import styles from "./orders-page.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../services/actions/auth";
 import { FC } from "react";
+import OrdersList from "../../components/orders-list/orders-list";
 
 export const OrdersPage: FC = () => {
+  const orders = useSelector((store: any) => store.user.orders);
   const mainClassNames = classNames(`${styles.main} container`);
   const navigate = useNavigate();
   const dispatch = useDispatch() as any;
@@ -29,7 +31,7 @@ export const OrdersPage: FC = () => {
           Выход
         </Tab>
       </div>
-      <div className={styles.target}>Hello world!</div>
+      {orders !== null && <OrdersList orders={orders} />}
     </main>
   );
 };

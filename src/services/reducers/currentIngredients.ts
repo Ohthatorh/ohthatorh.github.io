@@ -4,14 +4,24 @@ import {
   UPDATE_INGREDIENTS,
   SORT_INGREDIENTS,
   CLEAR_CURRENT_INGREDIENTS,
+  TActionCurrentIngredients,
 } from "../actions/currentIngredients";
+import { TIngredient } from "../types/types";
 
-const initialState = {
+interface IInitialState {
+  bun: TIngredient | null;
+  items: Array<TIngredient> | [];
+}
+
+const initialState: IInitialState = {
   bun: null,
   items: [],
 };
 
-export const currentIngredientsReducer = (state = initialState, action) => {
+export const currentIngredientsReducer = (
+  state = initialState,
+  action: TActionCurrentIngredients
+) => {
   switch (action.type) {
     case UPDATE_INGREDIENTS: {
       return {

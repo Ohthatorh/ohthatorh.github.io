@@ -1,0 +1,49 @@
+.modalWrap {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.modalImg {
+  width: 100%;
+}
+.modalInfoList {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.modalInfoItemTitle {
+  color: var(--darkGreyColor);
+}
+.ingredientsList {
+  padding-right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 200px;
+  overflow-x: hidden;
+  margin-bottom: 40px;
+}
+
+.text {
+  color: var(--successColor);
+}
+
+.orderInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.total {
+  display: flex;
+  gap: 4px;
+}
+
+.ingredientsList::-webkit-scrollbar-track {
+  background-color: #2f2f37;
+}
+.ingredientsList::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}
+.ingredientsList::-webkit-scrollbar {
+  width: 8px;
+}

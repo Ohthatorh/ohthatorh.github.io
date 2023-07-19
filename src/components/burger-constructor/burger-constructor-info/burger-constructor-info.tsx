@@ -9,10 +9,10 @@ import OrderDetails from "../../order-details/order-details";
 import { useDispatch, useSelector } from "react-redux";
 import { postOrder } from "../../../services/actions/order";
 import { useNavigate } from "react-router-dom";
-import { TBoolean, TIngredient } from "../../../services/types/types";
+import { TIngredient } from "../../../services/types/types";
 
 const BurgerConstrucorInfo: FC = () => {
-  const [showModal, setShowModal] = useState<TBoolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(0);
   const textClassNames = classNames(
     `${styles.burgerConstructorInfoText} text text_type_digits-medium mr-10`

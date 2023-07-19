@@ -9,7 +9,7 @@ import {
   TTitlesStructure,
 } from "../../../services/types/types";
 
-interface asd {
+interface IStructureData {
   [key: string]: {
     items: Array<TIngredient>;
     title: string;
@@ -25,7 +25,7 @@ const BurgerIngredientsWrap: FC<IBurgerIngredientsWrap> = ({
     sauce: "Соусы",
     main: "Начинки",
   };
-  let structureData: asd = {};
+  let structureData: IStructureData = {};
   data.forEach((el: TIngredient) => {
     if (!structureData[el.type]) {
       structureData[el.type] = { items: [], title: names[el.type] };

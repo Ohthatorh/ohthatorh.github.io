@@ -2,7 +2,6 @@ import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./header-navigation.module.css";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import { IPathname, TClassnames } from "../../../services/types/types";
 import { FC } from "react";
 
@@ -28,26 +27,19 @@ const HeaderNavigation: FC<IPathname> = ({ pathname }) => {
           </Link>
         </li>
         <li>
-          <a
+          <Link
             className={
-              pathname === "/lenta"
-                ? navLinkClassNamesActive
-                : navLinkClassNames
+              pathname === "/feed" ? navLinkClassNamesActive : navLinkClassNames
             }
-            href="../"
+            to={{ pathname: "/feed" }}
           >
-            <BurgerIcon
-              type={pathname === "/lenta" ? "primary" : "secondary"}
-            />
+            <BurgerIcon type={pathname === "/feed" ? "primary" : "secondary"} />
             <p className="text text_type_main-default ml-2">Лента заказов</p>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
   );
-};
-HeaderNavigation.propTypes = {
-  pathname: PropTypes.string.isRequired,
 };
 
 export default HeaderNavigation;

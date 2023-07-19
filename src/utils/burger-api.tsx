@@ -7,10 +7,12 @@ export function getIngredientsRequest() {
 }
 
 export function postOrderRequest(data: IData) {
+  const token = getCookie("accessToken");
   return request("/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: token,
     },
     body: JSON.stringify({
       ingredients: data,

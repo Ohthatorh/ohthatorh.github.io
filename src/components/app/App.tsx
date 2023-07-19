@@ -8,6 +8,8 @@ import {
   ProfilePage,
   RegisterPage,
   ResetPasswordPage,
+  FeedPage,
+  OrderPage,
 } from "../../pages/index";
 import {
   BrowserRouter,
@@ -25,6 +27,14 @@ import { getListIngredients } from "../../services/actions/ingredients";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { REMOVE_CURRENT_INGREDIENT } from "../../services/actions/currentIngredient";
 import Modal from "../modal/modal";
+import { AppDispatch } from "../../services/types/types";
+import OrderDetail from "../order-detail/order-detail";
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
+  WS_USER_CONNECTION_CLOSED,
+  WS_USER_CONNECTION_START,
+} from "../../services/actions/wsActions";
 
 const ModalSwitch: FC = () => {
   const location = useLocation();
@@ -76,6 +86,8 @@ const ModalSwitch: FC = () => {
           path="/profile/orders"
           element={<ProtectedRoute element={<OrdersPage />} />}
         />
+        <Route path="/feed/" element={<FeedPage />} />
+        <Route path="/feed/:orderId" element={<OrderPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {background && (
@@ -88,6 +100,14 @@ const ModalSwitch: FC = () => {
               </Modal>
             }
           />
+          <Route
+            path="/feed/:orderId"
+            element={
+              <Modal text="" onClose={handleModalClose}>
+                <OrderDetail />
+              </Modal>
+            }
+          />
         </Routes>
       )}
     </>
@@ -95,11 +115,17 @@ const ModalSwitch: FC = () => {
 };
 
 function App() {
-  const dispatch = useDispatch() as any;
+  const dispatch = useDispatch() as AppDispatch;
   useEffect(() => {
     dispatch(getListIngredients());
     dispatch(getUserInfo());
-  }, []);
+    dispatch({ type: WS_CONNECTION_START });
+    dispatch({ type: WS_USER_CONNECTION_START });
+    return () => {
+      dispatch({ type: WS_CONNECTION_CLOSED });
+      dispatch({ type: WS_USER_CONNECTION_CLOSED });
+    };
+  }, [dispatch]);
   return (
     <BrowserRouter>
       <ModalSwitch />
