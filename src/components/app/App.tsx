@@ -20,26 +20,19 @@ import {
 } from "react-router-dom";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { FC, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { getUserInfo } from "../../services/actions/user";
 import AppHeader from "../app-header/app-header";
 import { getListIngredients } from "../../services/actions/ingredients";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { REMOVE_CURRENT_INGREDIENT } from "../../services/actions/currentIngredient";
 import Modal from "../modal/modal";
-import { AppDispatch } from "../../services/types/types";
 import OrderDetail from "../order-detail/order-detail";
-import {
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_START,
-  WS_USER_CONNECTION_CLOSED,
-  WS_USER_CONNECTION_START,
-} from "../../services/actions/wsActions";
+import { useAppDispatch } from "../../services/hooks/hooks";
 
 const ModalSwitch: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const background = location.state && location.state.background;
   const handleModalClose = () => {
     dispatch({
@@ -115,16 +108,10 @@ const ModalSwitch: FC = () => {
 };
 
 function App() {
-  const dispatch = useDispatch() as AppDispatch;
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getListIngredients());
     dispatch(getUserInfo());
-    dispatch({ type: WS_CONNECTION_START });
-    dispatch({ type: WS_USER_CONNECTION_START });
-    return () => {
-      dispatch({ type: WS_CONNECTION_CLOSED });
-      dispatch({ type: WS_USER_CONNECTION_CLOSED });
-    };
   }, [dispatch]);
   return (
     <BrowserRouter>

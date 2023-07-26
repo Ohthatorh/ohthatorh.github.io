@@ -12,7 +12,7 @@ export interface ISetCurrentIngredient {
 
 export interface IRemoveCurrentIngredient {
   readonly type: typeof REMOVE_CURRENT_INGREDIENT;
-  item: TIngredient;
+  item?: TIngredient;
 }
 
 export type TActionCurrentIngredient =

@@ -11,6 +11,7 @@ import { TActionForgotPassword } from "../actions/forgotPassword";
 import { TActionIngredients } from "../actions/ingredients";
 import { TWSActions } from "../actions/wsActions";
 import { rootReducer } from "../reducers";
+import { store } from "../..";
 export interface IPathname {
   readonly pathname: string;
 }
@@ -29,6 +30,7 @@ export type TIngredient = {
   carbohydrates: number;
   calories: number;
   __v: number;
+  uniqueId?: string;
 };
 
 export interface IBurgerConstructorItem {
@@ -43,6 +45,7 @@ export interface IBurgerIngredientsList {
 }
 
 export interface IStructureData {
+  type: string | undefined;
   title: string;
   items: Array<TIngredient>;
 }
@@ -50,8 +53,6 @@ export interface IStructureData {
 export type TTitlesStructure = {
   [N: string]: string;
 };
-
-export type TIngredientWithUnique = TIngredient & { uniqueId: string };
 
 export interface IBurgerIngredientItem {
   item: TIngredient;
@@ -68,7 +69,7 @@ export interface IEvent {
 export type THandleScroll = (e: IEvent) => void;
 
 export interface IOrderDetails {
-  orderId: number;
+  orderId: number | string;
   onClose: () => void;
 }
 
@@ -90,7 +91,7 @@ export type TRequest = {
 };
 
 export interface IData {
-  email: string;
+  email?: string;
   password?: string;
   name?: string;
   token?: string;
@@ -145,5 +146,4 @@ export type RootState = ReturnType<typeof rootReducer>;
 export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TAppActions>
 >;
-
 export type AppDispatch = ThunkDispatch<RootState, never, TAppActions>;

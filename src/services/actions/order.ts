@@ -1,6 +1,6 @@
 import { SetStateAction } from "react";
 import { postOrderRequest } from "../../utils/burger-api";
-import { AppDispatch, IData } from "../types/types";
+import { AppDispatch, IData, TIngredient } from "../types/types";
 import { CLEAR_CURRENT_INGREDIENTS } from "./currentIngredients";
 
 export const POST_ORDER_REQUEST: "POST_ORDER_REQUEST" = "POST_ORDER_REQUEST";
@@ -33,7 +33,7 @@ export type TActionOrder =
   | IClearOrder;
 
 export function postOrder(
-  data: IData,
+  data: Array<TIngredient> | string[],
   showModal: { (value: SetStateAction<boolean>): void; (arg0: boolean): void }
 ) {
   return function (dispatch: AppDispatch) {

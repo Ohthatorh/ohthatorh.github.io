@@ -1,3 +1,4 @@
+import { AnyAction } from "redux";
 import {
   CLEAR_INGREDIENTS,
   GET_INGREDIENTS_FAILED,
@@ -21,8 +22,8 @@ const initialState: IInitialState = {
 
 export const ingredientsReducer = (
   state = initialState,
-  action: TActionIngredients
-) => {
+  action: AnyAction
+): IInitialState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {

@@ -7,6 +7,7 @@ import {
   TActionCurrentIngredients,
 } from "../actions/currentIngredients";
 import { TIngredient } from "../types/types";
+import { AnyAction } from "redux";
 
 interface IInitialState {
   bun: TIngredient | null;
@@ -20,7 +21,7 @@ const initialState: IInitialState = {
 
 export const currentIngredientsReducer = (
   state = initialState,
-  action: TActionCurrentIngredients
+  action: AnyAction
 ) => {
   switch (action.type) {
     case UPDATE_INGREDIENTS: {

@@ -7,13 +7,13 @@ import {
   PasswordInput,
   Tab,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../services/actions/auth";
 import { useState, FC, FormEvent } from "react";
 import { setUserData } from "../../services/actions/user";
 import { useForm } from "../../services/hooks/useForm";
 import { TClassnames } from "../../services/types/types";
+import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 
 export const ProfilePage: FC = () => {
   const mainClassNames: TClassnames = classNames(`${styles.main} container`);
@@ -21,8 +21,8 @@ export const ProfilePage: FC = () => {
     `${styles.text} text text_type_main-default mt-20`
   );
   const navigate = useNavigate();
-  const dispatch = useDispatch() as any;
-  const user = useSelector((store: any) => store.user.user);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((store) => store.user.user);
   const [editForm, setEditForm] = useState(false);
   const { values, handleChange, setValues } = useForm({
     name: user.name,

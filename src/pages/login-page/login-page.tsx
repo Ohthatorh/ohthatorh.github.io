@@ -6,14 +6,14 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { auth } from "../../services/actions/auth";
 import { useForm } from "../../services/hooks/useForm";
 import { FC, FormEvent } from "react";
 import { TClassnames } from "../../services/types/types";
+import { useAppDispatch } from "../../services/hooks/hooks";
 
 export const LoginPage: FC = () => {
-  const dispatch = useDispatch() as any;
+  const dispatch = useAppDispatch();
   const mainClassNames: TClassnames = classNames(`${styles.main} container`);
   const textClassNames: TClassnames = classNames(
     `${styles.text} text text_type_main-default mb-4`

@@ -2,7 +2,6 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import BurgerConstrucorItem from "../burger-constructor-item/burger-constructor-item";
 import styles from "./burger-constructor-list.module.css";
 import classNames from "classnames";
-import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
   SET_BUN_INGREDIENT,
@@ -16,14 +15,14 @@ import {
   TIngredient,
   TClassnames,
   TMoveCard,
-  TIngredientWithUnique,
 } from "../../../services/types/types";
+import { useAppDispatch, useAppSelector } from "../../../services/hooks/hooks";
 
 const BurgerConstructorList: FC = () => {
   const burgerConstructorListWrapClassNames: TClassnames = classNames(
     `${styles.burgerConstructorListWrap} mb-10`
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item: TIngredient) {
@@ -44,8 +43,8 @@ const BurgerConstructorList: FC = () => {
     }),
   });
   const borderColor = isHover ? "lightgreen" : "transparent";
-  const bun = useSelector((store: any) => store.currentIngredients.bun);
-  const data = useSelector((store: any) => store.currentIngredients.items);
+  const bun = useAppSelector((store) => store.currentIngredients.bun);
+  const data = useAppSelector((store) => store.currentIngredients.items);
   const moveCard: TMoveCard = (dragIndex, hoverIndex) => {
     const sortedIngredients = update(data, {
       $splice: [
@@ -83,7 +82,7 @@ const BurgerConstructorList: FC = () => {
           </div>
         )}
         <ul className={styles.burgerConstructorList}>
-          {data.map((el: TIngredientWithUnique, index: number) => {
+          {data.map((el: TIngredient, index: number) => {
             return (
               <BurgerConstrucorItem
                 item={el}

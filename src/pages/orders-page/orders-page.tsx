@@ -2,20 +2,30 @@ import classNames from "classnames";
 import styles from "./orders-page.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../services/actions/auth";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import OrdersList from "../../components/orders-list/orders-list";
+import {
+  WS_USER_CONNECTION_CLOSED,
+  WS_USER_CONNECTION_START,
+} from "../../services/actions/wsActions";
+import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 
 export const OrdersPage: FC = () => {
-  const orders = useSelector((store: any) => store.user.orders);
+  const orders = useAppSelector((store) => store.user.orders);
   const mainClassNames = classNames(`${styles.main} container`);
   const navigate = useNavigate();
-  const dispatch = useDispatch() as any;
+  const dispatch = useAppDispatch();
   const handleLogoutClick = () => {
     dispatch(logout());
     navigate("/");
   };
+  useEffect(() => {
+    dispatch({ type: WS_USER_CONNECTION_START });
+    return () => {
+      dispatch({ type: WS_USER_CONNECTION_CLOSED });
+    };
+  }, [dispatch]);
   return (
     <main className={mainClassNames}>
       <div className={styles.tabs}>

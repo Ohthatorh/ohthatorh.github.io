@@ -11,8 +11,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classNames from "classnames";
 import { OrderIngredient } from "./order-ingredient/order-ingredient";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../services/hooks/hooks";
 
 const OrderItem: FC<{ item: IOrderItem }> = ({ item }) => {
   const location = useLocation();
@@ -23,7 +23,7 @@ const OrderItem: FC<{ item: IOrderItem }> = ({ item }) => {
     `${styles.price}`,
     "text text_type_digits-default"
   );
-  const ingredients = useSelector((store: any) => store.ingredients.items);
+  const ingredients = useAppSelector((store) => store.ingredients.items);
   const currentIngredients = item.ingredients.filter((el, index) => {
     return item.ingredients.indexOf(el) === index;
   });

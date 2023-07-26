@@ -1,14 +1,14 @@
 import { FC } from "react";
 import styles from "./orders-info.module.css";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
 import { IOrderItem } from "../../services/types/types";
+import { useAppSelector } from "../../services/hooks/hooks";
 
 const OrdersInfo: FC = () => {
   const ordersInfoListTextsClassnames = classNames(
     `${styles.ordersInfoListTexts} ${styles.color}`
   );
-  const orders = useSelector((store: any) => store.orders);
+  const orders = useAppSelector((store) => store.orders);
   const ordersDone =
     orders.orders !== null
       ? orders.orders.filter((el: IOrderItem) => el.status === "done")

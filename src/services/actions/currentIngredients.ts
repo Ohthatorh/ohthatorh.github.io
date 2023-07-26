@@ -14,7 +14,7 @@ export interface IUpdateIngredients {
 
 export interface IRemoveIngredients {
   readonly type: typeof REMOVE_INGREDIENT;
-  item: TIngredient;
+  item?: TIngredient;
   index: number;
 }
 

@@ -11,10 +11,10 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../services/hooks/hooks";
 
 const OrderInfos: FC<{ order: IOrderItem }> = ({ order }) => {
-  const ingredients = useSelector((store: any) => store.ingredients.items);
+  const ingredients = useAppSelector((store) => store.ingredients.items);
   const textClassnames: TClassnames = classNames(
     `${styles.text} text text_type_main-default mb-15`
   );

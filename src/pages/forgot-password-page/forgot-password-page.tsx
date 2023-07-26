@@ -5,14 +5,14 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { sendForgotLetter } from "../../services/actions/forgotPassword";
 import { useForm } from "../../services/hooks/useForm";
 import { FC, FormEvent } from "react";
 import { TClassnames } from "../../services/types/types";
+import { useAppDispatch } from "../../services/hooks/hooks";
 
 export const ForgotPasswordPage: FC = () => {
-  const dispatch = useDispatch() as any;
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const mainClassNames: TClassnames = classNames(`${styles.main} container`);
   const textClassNames: TClassnames = classNames(

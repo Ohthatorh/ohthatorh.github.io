@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { FC, useEffect, useState } from "react";
 import IngredientInfos from "../ingredient-infos/ingredient-infos";
 import { TIngredient } from "../../services/types/types";
+import { useAppSelector } from "../../services/hooks/hooks";
 
 const IngredientDetails: FC = () => {
   const [item, setItem] = useState({
@@ -11,8 +11,8 @@ const IngredientDetails: FC = () => {
     name: "",
   }) as any;
   const { ingredientId } = useParams();
-  const burgerIngredientsList = useSelector(
-    (store: any) => store.ingredients.items
+  const burgerIngredientsList = useAppSelector(
+    (store) => store.ingredients.items
   );
   useEffect(() => {
     if (burgerIngredientsList.length) {

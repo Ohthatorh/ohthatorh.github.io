@@ -6,10 +6,10 @@ import { FC, useEffect, useState } from "react";
 import styles from "./burger-constructor-info.module.css";
 import classNames from "classnames";
 import OrderDetails from "../../order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
 import { postOrder } from "../../../services/actions/order";
 import { useNavigate } from "react-router-dom";
 import { TIngredient } from "../../../services/types/types";
+import { useAppDispatch, useAppSelector } from "../../../services/hooks/hooks";
 
 const BurgerConstrucorInfo: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -17,14 +17,13 @@ const BurgerConstrucorInfo: FC = () => {
   const textClassNames = classNames(
     `${styles.burgerConstructorInfoText} text text_type_digits-medium mr-10`
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const ingredients = useSelector(
-    (store: any) => store.currentIngredients.items
-  );
-  const { orderId } = useSelector((store: any) => store.order);
-  const bun = useSelector((store: any) => store.currentIngredients.bun);
-  const user = useSelector((store: any) => store.user.user);
+  const ingredients = useAppSelector((store) => store.currentIngredients.items);
+  const { orderId } = useAppSelector((store) => store.order);
+  const bun = useAppSelector((store) => store.currentIngredients.bun);
+  const user = useAppSelector((store) => store.user.user);
+
   useEffect(() => {
     const countPrices = ingredients.length
       ? ingredients.reduce((sum: number, a: TIngredient) => sum + a.price, 0) +
@@ -36,9 +35,9 @@ const BurgerConstrucorInfo: FC = () => {
 
   const handleOpenModal = () => {
     const choosedIngredients = ingredients.map((el: TIngredient) => el._id);
-    choosedIngredients.push(bun._id);
+    choosedIngredients.push(bun!._id);
     if (user.name) {
-      dispatch<any>(postOrder(choosedIngredients, setShowModal));
+      dispatch(postOrder(choosedIngredients, setShowModal));
     } else {
       navigate("/login");
     }
