@@ -7,11 +7,7 @@ import { SET_CURRENT_INGREDIENT } from "../../services/actions/currentIngredient
 
 const IngredientDetails: FC = () => {
   const dispatch = useAppDispatch();
-  const [item, setItem] = useState({
-    image_mobile: "",
-    image: "",
-    name: "",
-  }) as any;
+  const [item, setItem] = useState<TIngredient | any>({});
   const { ingredientId } = useParams();
   const burgerIngredientsList = useAppSelector(
     (store) => store.ingredients.items

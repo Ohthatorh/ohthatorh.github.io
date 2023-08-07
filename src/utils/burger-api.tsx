@@ -27,7 +27,7 @@ export function sendForgotLetterRequest(data: IData) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: data,
+      email: data.email,
     }),
   });
 }

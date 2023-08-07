@@ -7,8 +7,8 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { sendForgotLetter } from "../../services/actions/forgotPassword";
 import { useForm } from "../../services/hooks/useForm";
-import { FC, FormEvent } from "react";
-import { TClassnames } from "../../services/types/types";
+import { FC, FormEvent, ChangeEvent } from "react";
+import { IData, TClassnames } from "../../services/types/types";
 import { useAppDispatch } from "../../services/hooks/hooks";
 
 export const ForgotPasswordPage: FC = () => {
@@ -18,13 +18,21 @@ export const ForgotPasswordPage: FC = () => {
   const textClassNames: TClassnames = classNames(
     `${styles.text} text text_type_main-default mb-4`
   );
-  const { values, handleChange } = useForm({}) as any;
+  const {
+    values,
+    handleChange,
+  }: {
+    values: IData;
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  } = useForm({
+    email: "",
+  });
   const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!values.email) {
       return;
     }
-    dispatch(sendForgotLetter(values.email));
+    dispatch(sendForgotLetter(values));
     navigate("/reset-password");
   };
   return (

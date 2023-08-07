@@ -8,8 +8,8 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { sendResetPassword } from "../../services/actions/resetPassword";
 import { useForm } from "../../services/hooks/useForm";
-import { FC, FormEvent } from "react";
-import { TClassnames } from "../../services/types/types";
+import { FC, FormEvent, ChangeEvent } from "react";
+import { IData, TClassnames } from "../../services/types/types";
 import { useAppDispatch } from "../../services/hooks/hooks";
 
 export const ResetPasswordPage: FC = () => {
@@ -19,7 +19,16 @@ export const ResetPasswordPage: FC = () => {
   const textClassNames: TClassnames = classNames(
     `${styles.text} text text_type_main-default mb-4`
   );
-  const { values, handleChange } = useForm({}) as any;
+  const {
+    values,
+    handleChange,
+  }: {
+    values: IData;
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  } = useForm({
+    email: "",
+    password: "",
+  });
   const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!values.password || !values.token) {

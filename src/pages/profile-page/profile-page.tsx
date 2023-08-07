@@ -9,10 +9,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../services/actions/auth";
-import { useState, FC, FormEvent } from "react";
+import { useState, FC, FormEvent, ChangeEvent } from "react";
 import { setUserData } from "../../services/actions/user";
 import { useForm } from "../../services/hooks/useForm";
-import { TClassnames } from "../../services/types/types";
+import { IData, TClassnames } from "../../services/types/types";
 import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 
 export const ProfilePage: FC = () => {
@@ -24,11 +24,19 @@ export const ProfilePage: FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.user.user);
   const [editForm, setEditForm] = useState(false);
-  const { values, handleChange, setValues } = useForm({
+  const {
+    values,
+    handleChange,
+    setValues,
+  }: {
+    values: IData;
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    setValues: React.Dispatch<React.SetStateAction<{}>>;
+  } = useForm({
     name: user.name,
     email: user.email,
     password: "123456",
-  }) as any;
+  });
   const handleLogoutClick = () => {
     dispatch(logout());
     navigate("/login");

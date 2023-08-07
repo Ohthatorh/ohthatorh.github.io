@@ -9,8 +9,9 @@ import { Link } from "react-router-dom";
 import { auth } from "../../services/actions/auth";
 import { useForm } from "../../services/hooks/useForm";
 import { FC, FormEvent } from "react";
-import { TClassnames } from "../../services/types/types";
+import { IData, TClassnames } from "../../services/types/types";
 import { useAppDispatch } from "../../services/hooks/hooks";
+import { ChangeEvent } from "react";
 
 export const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +19,16 @@ export const LoginPage: FC = () => {
   const textClassNames: TClassnames = classNames(
     `${styles.text} text text_type_main-default mb-4`
   );
-  const { values, handleChange } = useForm({}) as any;
+  const {
+    values,
+    handleChange,
+  }: {
+    values: IData;
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  } = useForm({
+    email: "",
+    password: "",
+  });
   const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!values.email || !values.password) {
