@@ -36,7 +36,7 @@ export const ResetPasswordPage: FC = () => {
         </h1>
         <PasswordInput
           onChange={handleChange}
-          value={values.password}
+          value={values.password || ""}
           name={"password"}
           extraClass="mb-6"
         />
@@ -49,7 +49,7 @@ export const ResetPasswordPage: FC = () => {
           errorText={"Ошибка"}
           size={"default"}
           extraClass="mb-6"
-          value={values.token}
+          value={values.token || ""}
         />
         <Button
           htmlType="submit"

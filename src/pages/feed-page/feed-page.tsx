@@ -9,6 +9,7 @@ import {
   WS_CONNECTION_START,
 } from "../../services/actions/wsActions";
 import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import { Preloader } from "../../components/preloader/preloader";
 
 export const FeedPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +21,9 @@ export const FeedPage: FC = () => {
   }, [dispatch]);
   const orders = useAppSelector((store) => store.orders);
   const mainClassNames: TClassnames = classNames(`${styles.main} container`);
-  return (
+  return !orders.orders ? (
+    <Preloader />
+  ) : (
     <main className={mainClassNames}>
       <h1 className="text text_type_main-large mb-3">Лента заказов</h1>
       <section className={styles.orders}>

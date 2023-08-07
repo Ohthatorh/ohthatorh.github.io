@@ -15,7 +15,7 @@ export interface IGetIngredientsRequest {
 
 export interface IGetIngredientsSuccess {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
-  items: Array<TIngredient> | undefined;
+  items: Array<TIngredient>;
 }
 
 export interface IGetIngredientsFailed {
@@ -42,7 +42,7 @@ export function getListIngredients() {
         if (res.success) {
           dispatch({
             type: GET_INGREDIENTS_SUCCESS,
-            items: res.data,
+            items: res.data!,
           });
         } else {
           dispatch({

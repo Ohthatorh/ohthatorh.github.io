@@ -72,7 +72,7 @@ export const ProfilePage: FC = () => {
         <Input
           type={"text"}
           placeholder={"Имя"}
-          value={values.name}
+          value={values.name || ""}
           onIconClick={handleEditClick}
           onChange={handleChange}
           icon={"EditIcon"}
@@ -84,7 +84,7 @@ export const ProfilePage: FC = () => {
           disabled={!editForm}
         />
         <EmailInput
-          value={values.email}
+          value={values.email || ""}
           name={"email"}
           placeholder="Логин"
           // onIconClick={handleEditClick}
@@ -94,7 +94,7 @@ export const ProfilePage: FC = () => {
           disabled={!editForm}
         />
         <PasswordInput
-          value={values.password}
+          value={values.password || ""}
           name={"password"}
           // onIconClick={handleEditClick}
           onChange={handleChange}

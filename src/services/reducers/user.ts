@@ -1,4 +1,3 @@
-import { AnyAction } from "@reduxjs/toolkit";
 import {
   AUTH_REQUEST,
   AUTH_SUCCESS,
@@ -9,16 +8,19 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_ERROR,
+  TActionAuth,
 } from "../actions/auth";
 import {
   SET_USER_DATA_FAILED,
   SET_USER_DATA_REQUEST,
   SET_USER_DATA_SUCCESS,
+  TActionUser,
   USER_INFO_ERROR,
   USER_INFO_REQUEST,
   USER_INFO_SUCCESS,
 } from "../actions/user";
 import {
+  TWSActions,
   WS_USER_CONNECTION_CLOSED,
   WS_USER_CONNECTION_ERROR,
   WS_USER_CONNECTION_SUCCESS,
@@ -53,7 +55,7 @@ const initialState: IInitialState = {
 
 export const userReducer = (
   state = initialState,
-  action: AnyAction
+  action: TActionAuth | TActionUser | TWSActions
 ): IInitialState => {
   switch (action.type) {
     case REGISTER_REQUEST: {

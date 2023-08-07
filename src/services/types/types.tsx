@@ -11,7 +11,6 @@ import { TActionForgotPassword } from "../actions/forgotPassword";
 import { TActionIngredients } from "../actions/ingredients";
 import { TWSActions } from "../actions/wsActions";
 import { rootReducer } from "../reducers";
-import { store } from "../..";
 export interface IPathname {
   readonly pathname: string;
 }

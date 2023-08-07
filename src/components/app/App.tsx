@@ -24,20 +24,16 @@ import { getUserInfo } from "../../services/actions/user";
 import AppHeader from "../app-header/app-header";
 import { getListIngredients } from "../../services/actions/ingredients";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { REMOVE_CURRENT_INGREDIENT } from "../../services/actions/currentIngredient";
 import Modal from "../modal/modal";
 import OrderDetail from "../order-detail/order-detail";
-import { useAppDispatch } from "../../services/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import { Preloader } from "../preloader/preloader";
 
 const ModalSwitch: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const background = location.state && location.state.background;
   const handleModalClose = () => {
-    dispatch({
-      type: REMOVE_CURRENT_INGREDIENT,
-    });
     navigate(-1);
   };
   return (
@@ -109,11 +105,14 @@ const ModalSwitch: FC = () => {
 
 function App() {
   const dispatch = useAppDispatch();
+  const ingredients = useAppSelector((store) => store.ingredients.items);
   useEffect(() => {
     dispatch(getListIngredients());
     dispatch(getUserInfo());
   }, [dispatch]);
-  return (
+  return !ingredients.length ? (
+    <Preloader />
+  ) : (
     <BrowserRouter>
       <ModalSwitch />
     </BrowserRouter>

@@ -42,17 +42,17 @@ export const RegisterPage: FC = () => {
           errorText={"Ошибка"}
           size={"default"}
           extraClass="mb-6"
-          value={values.name}
+          value={values.name || ""}
         />
         <EmailInput
           onChange={handleChange}
-          value={values.email}
+          value={values.email || ""}
           name={"email"}
           extraClass="mb-6"
         />
         <PasswordInput
           onChange={handleChange}
-          value={values.password}
+          value={values.password || ""}
           name={"password"}
           extraClass="mb-6"
         />

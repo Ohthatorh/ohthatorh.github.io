@@ -37,6 +37,7 @@ export function postOrder(
   showModal: { (value: SetStateAction<boolean>): void; (arg0: boolean): void }
 ) {
   return function (dispatch: AppDispatch) {
+    showModal(true);
     dispatch({
       type: POST_ORDER_REQUEST,
     });
@@ -48,7 +49,6 @@ export function postOrder(
             orderId: res.order.number,
             orderName: res.name,
           });
-          showModal(true);
           dispatch({
             type: CLEAR_CURRENT_INGREDIENTS,
           });

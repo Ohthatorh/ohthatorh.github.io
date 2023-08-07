@@ -6,6 +6,8 @@ import { logout } from "../../services/actions/auth";
 import { FC, useEffect } from "react";
 import OrdersList from "../../components/orders-list/orders-list";
 import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
   WS_USER_CONNECTION_CLOSED,
   WS_USER_CONNECTION_START,
 } from "../../services/actions/wsActions";
@@ -22,8 +24,10 @@ export const OrdersPage: FC = () => {
   };
   useEffect(() => {
     dispatch({ type: WS_USER_CONNECTION_START });
+    dispatch({ type: WS_CONNECTION_START });
     return () => {
       dispatch({ type: WS_USER_CONNECTION_CLOSED });
+      dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [dispatch]);
   return (
@@ -41,7 +45,7 @@ export const OrdersPage: FC = () => {
           Выход
         </Tab>
       </div>
-      {orders !== null && <OrdersList orders={orders} />}
+      <OrdersList orders={orders} />
     </main>
   );
 };

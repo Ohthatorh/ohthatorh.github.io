@@ -27,7 +27,7 @@ export interface IWSConnectionSuccess {
 }
 export interface IWSConnectionError {
   readonly type: typeof WS_CONNECTION_ERROR;
-  message: string;
+  message: boolean;
 }
 export interface IWSConnectionClosed {
   readonly type: typeof WS_CONNECTION_CLOSED;
@@ -45,7 +45,7 @@ export interface IWSUserConnectionSuccess {
 }
 export interface IWSUserConnectionError {
   readonly type: typeof WS_USER_CONNECTION_ERROR;
-  message: string;
+  message: boolean;
 }
 export interface IWSUserConnectionClosed {
   readonly type: typeof WS_USER_CONNECTION_CLOSED;

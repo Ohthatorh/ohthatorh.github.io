@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import ModalHeader from "./modal-header/modal-header";
 import styles from "./modal.module.css";
@@ -21,7 +21,7 @@ const Modal: FC<IModal> = ({ children, text, onClose }) => {
     return () => window.removeEventListener("keydown", close);
     // eslint-disable-next-line
   }, []);
-  return ReactDOM.createPortal(
+  return createPortal(
     <>
       <ModalOverlay onClose={onClose} />
       <div className={modalClassNames}>

@@ -32,13 +32,13 @@ export const LoginPage: FC = () => {
         <h1 className="text text_type_main-medium mb-6">Вход</h1>
         <EmailInput
           onChange={handleChange}
-          value={values.email}
+          value={values.email || ""}
           name={"email"}
           extraClass="mb-6"
         />
         <PasswordInput
           onChange={handleChange}
-          value={values.password}
+          value={values.password || ""}
           name={"password"}
           extraClass="mb-6"
         />

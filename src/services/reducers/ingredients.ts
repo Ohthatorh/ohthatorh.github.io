@@ -9,7 +9,7 @@ import {
 import { TIngredient } from "../types/types";
 
 interface IInitialState {
-  items: Array<TIngredient> | [];
+  items: Array<TIngredient>;
   itemsRequest: boolean;
   itemsFailed: boolean;
 }
@@ -22,7 +22,7 @@ const initialState: IInitialState = {
 
 export const ingredientsReducer = (
   state = initialState,
-  action: AnyAction
+  action: TActionIngredients
 ): IInitialState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {

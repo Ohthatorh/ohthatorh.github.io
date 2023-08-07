@@ -4,6 +4,7 @@ import {
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
   CLEAR_ORDER,
+  TActionOrder,
 } from "../actions/order";
 
 interface IInitialState {
@@ -22,7 +23,7 @@ const initialState: IInitialState = {
 
 export const orderReducer = (
   state = initialState,
-  action: AnyAction
+  action: TActionOrder
 ): IInitialState => {
   switch (action.type) {
     case POST_ORDER_REQUEST: {
@@ -35,8 +36,8 @@ export const orderReducer = (
       return {
         ...state,
         hasError: false,
-        orderId: action.orderId,
-        orderName: action.orderName,
+        orderId: action.orderId!,
+        orderName: action.orderName!,
         isPending: false,
       };
     }

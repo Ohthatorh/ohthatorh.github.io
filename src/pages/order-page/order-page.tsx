@@ -2,17 +2,28 @@ import { useParams } from "react-router-dom";
 import { FC, useState, useEffect } from "react";
 import { IOrderItem } from "../../services/types/types";
 import OrderInfos from "../../components/order-infos/order-infos";
-import { useAppSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
+} from "../../services/actions/wsActions";
+import { Preloader } from "../../components/preloader/preloader";
 
 export const OrderPage: FC = () => {
-  const [currentOrder, setCurrentOrder] = useState<IOrderItem>();
   const { orderId } = useParams();
-  const orders = useAppSelector((store) => store.orders.orders);
+  const dispatch = useAppDispatch();
+  const order = useAppSelector(
+    (store) =>
+      store.orders.orders?.filter(
+        (order: IOrderItem) => order._id === orderId
+      )[0]
+  );
   useEffect(() => {
-    if (orders !== null) {
-      setCurrentOrder(orders.filter((el: IOrderItem) => el._id === orderId)[0]);
-    }
-  });
+    dispatch({ type: WS_CONNECTION_START });
+    return () => {
+      dispatch({ type: WS_CONNECTION_CLOSED });
+    };
+  }, []);
 
-  return <main>{currentOrder && <OrderInfos order={currentOrder} />}</main>;
+  return <main>{!order ? <Preloader /> : <OrderInfos order={order} />}</main>;
 };

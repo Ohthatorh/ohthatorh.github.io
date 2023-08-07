@@ -35,7 +35,7 @@ export const ForgotPasswordPage: FC = () => {
         </h1>
         <EmailInput
           onChange={handleChange}
-          value={values.email}
+          value={values.email || ""}
           name={"email"}
           extraClass="mb-6"
         />
