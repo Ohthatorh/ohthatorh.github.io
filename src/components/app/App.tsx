@@ -76,7 +76,14 @@ const ModalSwitch: FC = () => {
           element={<ProtectedRoute element={<OrdersPage />} />}
         />
         <Route path="/feed/" element={<FeedPage />} />
-        <Route path="/feed/:orderId" element={<OrderPage />} />
+        <Route
+          path="/feed/:orderId"
+          element={<OrderPage pathname={"/feed"} />}
+        />
+        <Route
+          path="/profile/orders/:orderId"
+          element={<OrderPage pathname={"/profile/orders"} />}
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {background && (
@@ -93,7 +100,15 @@ const ModalSwitch: FC = () => {
             path="/feed/:orderId"
             element={
               <Modal text="" onClose={handleModalClose}>
-                <OrderDetail />
+                <OrderDetail pathname={background.pathname} />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:orderId"
+            element={
+              <Modal text="" onClose={handleModalClose}>
+                <OrderDetail pathname={background.pathname} />
               </Modal>
             }
           />

@@ -5,13 +5,16 @@ import { useAppSelector } from "../../services/hooks/hooks";
 import { IOrderItem } from "../../services/types/types";
 import { Preloader } from "../preloader/preloader";
 
-const OrderDetail: FC = () => {
+const OrderDetail: FC<{ pathname: string }> = ({ pathname }) => {
   const { orderId } = useParams();
-  const order = useAppSelector(
-    (store) =>
-      store.orders.orders?.filter(
-        (order: IOrderItem) => order._id === orderId
-      )[0]
+  const order = useAppSelector((store) =>
+    pathname === "/feed"
+      ? store.orders.orders?.filter(
+          (order: IOrderItem) => order._id === orderId
+        )[0]
+      : store.user.orders?.filter(
+          (order: IOrderItem) => order._id === orderId
+        )[0]
   );
   return !order ? <Preloader /> : <OrderInfos order={order!} />;
 };

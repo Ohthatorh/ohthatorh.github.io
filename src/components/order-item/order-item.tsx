@@ -34,7 +34,7 @@ const OrderItem: FC<{ item: IOrderItem }> = ({ item }) => {
   return (
     <Link
       to={{
-        pathname: `/feed/${item._id}`,
+        pathname: `../${location.pathname}/${item._id}`,
       }}
       state={{ background: location }}
       className={styles.orderItem}
