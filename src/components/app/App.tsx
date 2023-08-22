@@ -36,6 +36,7 @@ const ModalSwitch: FC = () => {
   const handleModalClose = () => {
     navigate(-1);
   };
+  console.log(location);
   return (
     <>
       <AppHeader />
@@ -82,7 +83,11 @@ const ModalSwitch: FC = () => {
         />
         <Route
           path="/profile/orders/:orderId"
-          element={<OrderPage pathname={"/profile/orders"} />}
+          element={
+            <ProtectedRoute
+              element={<OrderPage pathname={"/profile/orders"} />}
+            />
+          }
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
@@ -119,8 +124,8 @@ const ModalSwitch: FC = () => {
 };
 
 function App() {
-  const dispatch = useAppDispatch();
   const ingredients = useAppSelector((store) => store.ingredients.items);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getListIngredients());
     dispatch(getUserInfo());
