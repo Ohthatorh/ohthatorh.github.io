@@ -124,12 +124,13 @@ const ModalSwitch: FC = () => {
 
 function App() {
   const ingredients = useAppSelector((store) => store.ingredients.items);
+  const userInfo = useAppSelector((store) => store.user.user.name);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getListIngredients());
     dispatch(getUserInfo());
+    dispatch(getListIngredients());
   }, [dispatch]);
-  return !ingredients.length ? (
+  return !ingredients.length && userInfo ? (
     <Preloader />
   ) : (
     <BrowserRouter>

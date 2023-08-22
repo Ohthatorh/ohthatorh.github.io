@@ -6,7 +6,8 @@ export const ProtectedRoute: FC<{
   element: ReactElement;
   onlyUnAuth?: boolean;
 }> = ({ element, onlyUnAuth = false }) => {
-  const isLoggedIn = getCookie("accessToken");
+  const isLoggedIn =
+    getCookie("accessToken") && getCookie("accessToken") !== "";
   const location = useLocation();
   const from = location.state?.from || "/";
   if (onlyUnAuth && isLoggedIn) {
