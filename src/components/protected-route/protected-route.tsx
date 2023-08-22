@@ -1,13 +1,12 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { FC, ReactElement } from "react";
-import { useAppSelector } from "../../services/hooks/hooks";
+import { getCookie } from "../../utils/cookie";
 
 export const ProtectedRoute: FC<{
   element: ReactElement;
-  path?: string;
   onlyUnAuth?: boolean;
 }> = ({ element, onlyUnAuth = false }) => {
-  const isLoggedIn = useAppSelector((store) => store.user.user.name);
+  const isLoggedIn = getCookie("accessToken");
   const location = useLocation();
   const from = location.state?.from || "/";
   if (onlyUnAuth && isLoggedIn) {

@@ -36,7 +36,6 @@ const ModalSwitch: FC = () => {
   const handleModalClose = () => {
     navigate(-1);
   };
-  console.log(location);
   return (
     <>
       <AppHeader />
@@ -70,7 +69,7 @@ const ModalSwitch: FC = () => {
         <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
         <Route
           path="/profile"
-          element={<ProtectedRoute path="/profile" element={<ProfilePage />} />}
+          element={<ProtectedRoute element={<ProfilePage />} />}
         />
         <Route
           path="/profile/orders"

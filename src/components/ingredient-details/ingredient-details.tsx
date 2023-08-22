@@ -27,8 +27,6 @@ const IngredientDetails: FC = () => {
   }, [burgerIngredientsList]);
 
   return item.name && <IngredientInfos item={item} />;
-
-  // return <IngredientInfos item={item} />;
 };
 
 export default IngredientDetails;
