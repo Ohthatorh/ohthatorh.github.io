@@ -130,7 +130,7 @@ function App() {
     dispatch(getUserInfo());
     dispatch(getListIngredients());
   }, [dispatch]);
-  return !ingredients.length && userInfo ? (
+  return !ingredients.length && !userInfo ? (
     <Preloader />
   ) : (
     <BrowserRouter>
