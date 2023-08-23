@@ -1,5 +1,5 @@
 import { TTokens } from "../services/types/types";
-import { setCookie } from "./cookie";
+import { removeCookie, setCookie } from "./cookie";
 
 export const saveTokens: TTokens = (refreshToken, accessToken) => {
   setCookie("accessToken", accessToken);
@@ -7,6 +7,6 @@ export const saveTokens: TTokens = (refreshToken, accessToken) => {
 };
 
 export const clearTokens = () => {
-  setCookie("accessToken", "");
-  localStorage.setItem("refreshToken", "");
+  removeCookie("accessToken");
+  localStorage.removeItem("refreshToken");
 };

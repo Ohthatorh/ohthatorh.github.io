@@ -1,4 +1,4 @@
-import { IData } from "../services/types/types";
+import { IData, TIngredient } from "../services/types/types";
 import { getCookie } from "./cookie";
 import { request } from "./request";
 
@@ -6,11 +6,13 @@ export function getIngredientsRequest() {
   return request("/ingredients");
 }
 
-export function postOrderRequest(data: IData) {
+export function postOrderRequest(data: Array<TIngredient> | string[]) {
+  const token = getCookie("accessToken");
   return request("/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: token,
     },
     body: JSON.stringify({
       ingredients: data,
@@ -25,7 +27,7 @@ export function sendForgotLetterRequest(data: IData) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: data,
+      email: data.email,
     }),
   });
 }

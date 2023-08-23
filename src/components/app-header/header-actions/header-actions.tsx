@@ -7,7 +7,9 @@ import { IPathname } from "../../../services/types/types";
 const HeaderActions: FC<IPathname> = ({ pathname }) => {
   return (
     <Link
-      className={pathname === "/" ? styles.personal : styles.personalActive}
+      className={
+        pathname === "/profile" ? styles.personalActive : styles.personal
+      }
       to={{ pathname: "/profile" }}
     >
       <ProfileIcon type={pathname === "/profile" ? "primary" : "secondary"} />

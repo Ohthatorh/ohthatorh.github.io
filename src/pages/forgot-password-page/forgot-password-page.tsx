@@ -5,26 +5,34 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { sendForgotLetter } from "../../services/actions/forgotPassword";
 import { useForm } from "../../services/hooks/useForm";
-import { FC, FormEvent } from "react";
-import { TClassnames } from "../../services/types/types";
+import { FC, FormEvent, ChangeEvent } from "react";
+import { IData, TClassnames } from "../../services/types/types";
+import { useAppDispatch } from "../../services/hooks/hooks";
 
 export const ForgotPasswordPage: FC = () => {
-  const dispatch = useDispatch() as any;
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const mainClassNames: TClassnames = classNames(`${styles.main} container`);
   const textClassNames: TClassnames = classNames(
     `${styles.text} text text_type_main-default mb-4`
   );
-  const { values, handleChange } = useForm({}) as any;
+  const {
+    values,
+    handleChange,
+  }: {
+    values: IData;
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  } = useForm({
+    email: "",
+  });
   const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!values.email) {
       return;
     }
-    dispatch(sendForgotLetter(values.email));
+    dispatch(sendForgotLetter(values));
     navigate("/reset-password");
   };
   return (
@@ -35,7 +43,7 @@ export const ForgotPasswordPage: FC = () => {
         </h1>
         <EmailInput
           onChange={handleChange}
-          value={values.email}
+          value={values.email || ""}
           name={"email"}
           extraClass="mb-6"
         />

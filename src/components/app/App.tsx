@@ -8,6 +8,8 @@ import {
   ProfilePage,
   RegisterPage,
   ResetPasswordPage,
+  FeedPage,
+  OrderPage,
 } from "../../pages/index";
 import {
   BrowserRouter,
@@ -18,23 +20,20 @@ import {
 } from "react-router-dom";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { FC, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { getUserInfo } from "../../services/actions/user";
 import AppHeader from "../app-header/app-header";
 import { getListIngredients } from "../../services/actions/ingredients";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { REMOVE_CURRENT_INGREDIENT } from "../../services/actions/currentIngredient";
 import Modal from "../modal/modal";
+import OrderDetail from "../order-detail/order-detail";
+import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import { Preloader } from "../preloader/preloader";
 
 const ModalSwitch: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const background = location.state && location.state.background;
   const handleModalClose = () => {
-    dispatch({
-      type: REMOVE_CURRENT_INGREDIENT,
-    });
     navigate(-1);
   };
   return (
@@ -70,11 +69,24 @@ const ModalSwitch: FC = () => {
         <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
         <Route
           path="/profile"
-          element={<ProtectedRoute path="/profile" element={<ProfilePage />} />}
+          element={<ProtectedRoute element={<ProfilePage />} />}
         />
         <Route
           path="/profile/orders"
           element={<ProtectedRoute element={<OrdersPage />} />}
+        />
+        <Route path="/feed/" element={<FeedPage />} />
+        <Route
+          path="/feed/:orderId"
+          element={<OrderPage pathname={"/feed"} />}
+        />
+        <Route
+          path="/profile/orders/:orderId"
+          element={
+            <ProtectedRoute
+              element={<OrderPage pathname={"/profile/orders"} />}
+            />
+          }
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
@@ -88,6 +100,22 @@ const ModalSwitch: FC = () => {
               </Modal>
             }
           />
+          <Route
+            path="/feed/:orderId"
+            element={
+              <Modal text="" onClose={handleModalClose}>
+                <OrderDetail pathname={background.pathname} />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:orderId"
+            element={
+              <Modal text="" onClose={handleModalClose}>
+                <OrderDetail pathname={background.pathname} />
+              </Modal>
+            }
+          />
         </Routes>
       )}
     </>
@@ -95,12 +123,16 @@ const ModalSwitch: FC = () => {
 };
 
 function App() {
-  const dispatch = useDispatch() as any;
+  const ingredients = useAppSelector((store) => store.ingredients.items);
+  const userInfo = useAppSelector((store) => store.user.user.name);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getListIngredients());
     dispatch(getUserInfo());
-  }, []);
-  return (
+    dispatch(getListIngredients());
+  }, [dispatch]);
+  return !ingredients.length && !userInfo ? (
+    <Preloader />
+  ) : (
     <BrowserRouter>
       <ModalSwitch />
     </BrowserRouter>

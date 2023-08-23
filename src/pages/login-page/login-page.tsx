@@ -6,19 +6,29 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { auth } from "../../services/actions/auth";
 import { useForm } from "../../services/hooks/useForm";
 import { FC, FormEvent } from "react";
-import { TClassnames } from "../../services/types/types";
+import { IData, TClassnames } from "../../services/types/types";
+import { useAppDispatch } from "../../services/hooks/hooks";
+import { ChangeEvent } from "react";
 
 export const LoginPage: FC = () => {
-  const dispatch = useDispatch() as any;
+  const dispatch = useAppDispatch();
   const mainClassNames: TClassnames = classNames(`${styles.main} container`);
   const textClassNames: TClassnames = classNames(
     `${styles.text} text text_type_main-default mb-4`
   );
-  const { values, handleChange } = useForm({}) as any;
+  const {
+    values,
+    handleChange,
+  }: {
+    values: IData;
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  } = useForm({
+    email: "",
+    password: "",
+  });
   const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!values.email || !values.password) {
@@ -32,13 +42,13 @@ export const LoginPage: FC = () => {
         <h1 className="text text_type_main-medium mb-6">Вход</h1>
         <EmailInput
           onChange={handleChange}
-          value={values.email}
+          value={values.email || ""}
           name={"email"}
           extraClass="mb-6"
         />
         <PasswordInput
           onChange={handleChange}
-          value={values.password}
+          value={values.password || ""}
           name={"password"}
           extraClass="mb-6"
         />

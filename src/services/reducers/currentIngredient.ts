@@ -1,9 +1,22 @@
 import {
   SET_CURRENT_INGREDIENT,
   REMOVE_CURRENT_INGREDIENT,
+  TActionCurrentIngredient,
 } from "../actions/currentIngredient";
+import { TIngredient } from "../types/types";
 
-export const currentIngredientReducer = (state = { item: {} }, action) => {
+interface IInitialState {
+  item: TIngredient | null;
+}
+
+const initialState: IInitialState = {
+  item: null,
+};
+
+export const currentIngredientReducer = (
+  state = initialState,
+  action: TActionCurrentIngredient
+): IInitialState => {
   switch (action.type) {
     case SET_CURRENT_INGREDIENT: {
       return {
@@ -12,7 +25,7 @@ export const currentIngredientReducer = (state = { item: {} }, action) => {
     }
     case REMOVE_CURRENT_INGREDIENT: {
       return {
-        item: {},
+        item: null,
       };
     }
     default: {

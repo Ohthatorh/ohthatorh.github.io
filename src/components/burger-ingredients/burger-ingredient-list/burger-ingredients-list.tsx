@@ -13,7 +13,7 @@ const BurgerIngredientsList: FC<IBurgerIngredientsList> = ({ item, index }) => {
     "pt-6 pl-4 pb-10"
   );
   return (
-    <li key={index}>
+    <li className={`${item.type}__search`} key={index}>
       <p className="text text_type_main-medium">{item.title}</p>
       <ul className={burgeringredientsListClassNames}>
         {item.items.map((el) => {

@@ -1,18 +1,30 @@
+import { AnyAction } from "redux";
 import {
   POST_ORDER_REQUEST,
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
   CLEAR_ORDER,
+  TActionOrder,
 } from "../actions/order";
 
-const initialState = {
+interface IInitialState {
+  hasError: boolean;
+  isPending: boolean;
+  orderId: number | "";
+  orderName: string | "";
+}
+
+const initialState: IInitialState = {
   hasError: false,
   isPending: false,
   orderId: "",
   orderName: "",
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (
+  state = initialState,
+  action: TActionOrder
+): IInitialState => {
   switch (action.type) {
     case POST_ORDER_REQUEST: {
       return {
@@ -24,8 +36,8 @@ export const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         hasError: false,
-        orderId: action.orderId,
-        orderName: action.orderName,
+        orderId: action.orderId!,
+        orderName: action.orderName!,
         isPending: false,
       };
     }

@@ -7,13 +7,13 @@ import {
   PasswordInput,
   Tab,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../services/actions/auth";
-import { useState, FC, FormEvent } from "react";
+import { useState, FC, FormEvent, ChangeEvent } from "react";
 import { setUserData } from "../../services/actions/user";
 import { useForm } from "../../services/hooks/useForm";
-import { TClassnames } from "../../services/types/types";
+import { IData, TClassnames } from "../../services/types/types";
+import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 
 export const ProfilePage: FC = () => {
   const mainClassNames: TClassnames = classNames(`${styles.main} container`);
@@ -21,14 +21,22 @@ export const ProfilePage: FC = () => {
     `${styles.text} text text_type_main-default mt-20`
   );
   const navigate = useNavigate();
-  const dispatch = useDispatch() as any;
-  const user = useSelector((store: any) => store.user.user);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((store) => store.user.user);
   const [editForm, setEditForm] = useState(false);
-  const { values, handleChange, setValues } = useForm({
+  const {
+    values,
+    handleChange,
+    setValues,
+  }: {
+    values: IData;
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    setValues: React.Dispatch<React.SetStateAction<{}>>;
+  } = useForm({
     name: user.name,
     email: user.email,
     password: "123456",
-  }) as any;
+  });
   const handleLogoutClick = () => {
     dispatch(logout());
     navigate("/login");
@@ -72,7 +80,7 @@ export const ProfilePage: FC = () => {
         <Input
           type={"text"}
           placeholder={"Имя"}
-          value={values.name}
+          value={values.name || ""}
           onIconClick={handleEditClick}
           onChange={handleChange}
           icon={"EditIcon"}
@@ -84,7 +92,7 @@ export const ProfilePage: FC = () => {
           disabled={!editForm}
         />
         <EmailInput
-          value={values.email}
+          value={values.email || ""}
           name={"email"}
           placeholder="Логин"
           // onIconClick={handleEditClick}
@@ -94,7 +102,7 @@ export const ProfilePage: FC = () => {
           disabled={!editForm}
         />
         <PasswordInput
-          value={values.password}
+          value={values.password || ""}
           name={"password"}
           // onIconClick={handleEditClick}
           onChange={handleChange}

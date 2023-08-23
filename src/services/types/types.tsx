@@ -1,9 +1,20 @@
 import { ReactElement } from "react";
+import { Action, ActionCreator } from "redux";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { TActionAuth } from "../actions/auth";
+import { TActionCurrentIngredient } from "../actions/currentIngredient";
+import { TActionCurrentIngredients } from "../actions/currentIngredients";
+import { TActionOrder } from "../actions/order";
+import { TActionUser } from "../actions/user";
+import { TActionResetPassword } from "../actions/resetPassword";
+import { TActionForgotPassword } from "../actions/forgotPassword";
+import { TActionIngredients } from "../actions/ingredients";
+import { TWSActions } from "../actions/wsActions";
+import { rootReducer } from "../reducers";
 export interface IPathname {
   readonly pathname: string;
 }
 export type TClassnames = string;
-export type TBoolean = true | false;
 export type TMoveCard = (dragIndex: number, hoverIndex: number) => void;
 export type TIngredient = {
   _id: string;
@@ -18,6 +29,7 @@ export type TIngredient = {
   carbohydrates: number;
   calories: number;
   __v: number;
+  uniqueId?: string;
 };
 
 export interface IBurgerConstructorItem {
@@ -32,6 +44,7 @@ export interface IBurgerIngredientsList {
 }
 
 export interface IStructureData {
+  type: string | undefined;
   title: string;
   items: Array<TIngredient>;
 }
@@ -39,8 +52,6 @@ export interface IStructureData {
 export type TTitlesStructure = {
   [N: string]: string;
 };
-
-export type TIngredientWithUnique = TIngredient & { uniqueId: string };
 
 export interface IBurgerIngredientItem {
   item: TIngredient;
@@ -57,7 +68,7 @@ export interface IEvent {
 export type THandleScroll = (e: IEvent) => void;
 
 export interface IOrderDetails {
-  orderId: number;
+  orderId: number | string;
   onClose: () => void;
 }
 
@@ -79,8 +90,59 @@ export type TRequest = {
 };
 
 export interface IData {
-  email: string;
-  password: string;
-  name: string;
-  token: string;
+  email?: string;
+  password?: string;
+  name?: string;
+  token?: string;
 }
+
+export interface IResponse {
+  accessToken: string;
+  refreshToken: string;
+  success: boolean;
+  user: {
+    email: string;
+    name: string;
+    password?: string;
+  };
+  message?: string;
+  data?: Array<TIngredient>;
+  order: {
+    number?: number;
+  };
+  name?: string;
+}
+export interface IOrderItem {
+  _id: string;
+  status: string;
+  name: string;
+  ingredients: Array<string>;
+  createdAt: string;
+  updatedAt: string;
+  number: string;
+}
+
+export interface ISocketMiddleware {
+  wsStart: string;
+  onOpen: string;
+  onClose: string;
+  onError: string;
+  getOrders: string;
+}
+
+type TAppActions =
+  | TActionAuth
+  | TActionCurrentIngredient
+  | TActionCurrentIngredients
+  | TActionOrder
+  | TActionUser
+  | TActionResetPassword
+  | TActionForgotPassword
+  | TActionIngredients
+  | TWSActions;
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, RootState, TAppActions>
+>;
+export type AppDispatch = ThunkDispatch<RootState, never, TAppActions>;

@@ -35,3 +35,7 @@ export function getCookie(name: string) {
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
+export const removeCookie = (name: string) => {
+  setCookie(name, "", { expires: -1, path: "/" });
+};

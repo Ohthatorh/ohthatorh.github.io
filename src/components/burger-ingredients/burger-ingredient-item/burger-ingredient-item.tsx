@@ -4,7 +4,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredient-item.module.css";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { FC } from "react";
@@ -13,6 +12,7 @@ import {
   TClassnames,
   TIngredient,
 } from "../../../services/types/types";
+import { useAppSelector } from "../../../services/hooks/hooks";
 
 const BurgerIngredientItem: FC<IBurgerIngredientItem> = ({ item }) => {
   const location = useLocation();
@@ -20,8 +20,8 @@ const BurgerIngredientItem: FC<IBurgerIngredientItem> = ({ item }) => {
     type: "ingredient",
     item,
   });
-  const currentIngredients = useSelector(
-    (store: any) => store.currentIngredients
+  const currentIngredients = useAppSelector(
+    (store) => store.currentIngredients
   );
   const count =
     item.type === "bun" && currentIngredients.bun
