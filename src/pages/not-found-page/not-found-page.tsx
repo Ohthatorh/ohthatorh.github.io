@@ -14,7 +14,7 @@ export const NotFoundPage: FC = () => {
         Кажется, страницы не существует.
       </p>
       <p className="text text_type_main-default">
-        Не переживайте, бургеры останутся горячими, они ждут вас
+        Не переживайте, бургеры останутся горячими, они ждут вас{" "}
         <Link className={styles.link} to="/">
           тут
         </Link>
