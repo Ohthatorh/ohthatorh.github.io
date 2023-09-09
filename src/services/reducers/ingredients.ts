@@ -1,4 +1,3 @@
-import { AnyAction } from "redux";
 import {
   CLEAR_INGREDIENTS,
   GET_INGREDIENTS_FAILED,

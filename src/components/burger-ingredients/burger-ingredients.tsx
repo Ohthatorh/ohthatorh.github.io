@@ -4,7 +4,7 @@ import { FC } from "react";
 const BurgerIngredients: FC = () => {
   return (
     <div className="pt-10">
-      <p className="text text_type_main-large mb-5">Соберите бургер</p>
+      <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
       <BurgerIngredientsWrap />
     </div>
   );

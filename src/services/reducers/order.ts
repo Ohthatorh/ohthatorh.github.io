@@ -1,4 +1,3 @@
-import { AnyAction } from "redux";
 import {
   POST_ORDER_REQUEST,
   POST_ORDER_SUCCESS,

@@ -1,4 +1,3 @@
-import { AnyAction } from "redux";
 import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,

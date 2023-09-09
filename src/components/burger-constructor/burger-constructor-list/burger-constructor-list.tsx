@@ -69,6 +69,7 @@ const BurgerConstructorList: FC = () => {
         className={burgerConstructorListWrapClassNames}
         ref={dropTarget}
         style={{ borderColor }}
+        id="burger-constructor"
       >
         {bun && (
           <div className={styles.burgerConstructorFixed}>
