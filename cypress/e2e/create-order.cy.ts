@@ -2,16 +2,16 @@ import "@4tw/cypress-drag-drop";
 
 describe("Создание заказа", () => {
   before(() => {
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
   });
 
   it("По дефолту открыта главная страница", () => {
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
     cy.contains("Соберите бургер");
   });
 
   it("Оформление заказа", () => {
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
     cy.get("li").contains("Краторная булка N-200i").drag("#burger-constructor");
     cy.get("li")
       .contains("Биокотлета из марсианской Магнолии")
